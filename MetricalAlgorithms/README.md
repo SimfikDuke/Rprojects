@@ -9,7 +9,7 @@
     В качестве выборки был взят набор "Ирисы Фишера"
     Карта классификации выглядит следующим образом:
 
-    ![1NN](https://github.com/SimfikDuke/Rprojects/blob/master/MetricalAlgorithms/1NN_classification.png)
+![1NN](https://github.com/SimfikDuke/Rprojects/blob/master/MetricalAlgorithms/1NN_classification.png)
 
 **2. Алгоритм классификации "KNN":**
    
@@ -18,4 +18,5 @@
     В реализованном методе выбрана Евклидова метрика.
     В качестве выборки был взят набор "Ирисы Фишера"
     Карта классификации выглядит следующим образом:
-    ![1NN](https://github.com/SimfikDuke/Rprojects/blob/master/MetricalAlgorithms/KNN_classification.png)
+
+![KNN](https://github.com/SimfikDuke/Rprojects/blob/master/MetricalAlgorithms/KNN_classification.png)
