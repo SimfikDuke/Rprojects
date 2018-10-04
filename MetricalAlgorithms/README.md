@@ -30,7 +30,7 @@
 
 **3. LOO (leave-one-out) для алгоритма KNN:**
 
-Оценка скользящего контроля для различных значений $k$ алгоритма KNN: 
+Оценка скользящего контроля для различных значений ![k](http://www.sciweavers.org/upload/Tex2Img_1538633578/render.png) алгоритма KNN: 
 
 ![LOO(K)](https://github.com/SimfikDuke/Rprojects/blob/master/MetricalAlgorithms/LOO(K).png)
 
@@ -41,16 +41,16 @@
 $w(i,u)=[i<=k]w(i)$
 В реализованном методе выбрана Евклидова метрика.
 В качестве выборки был взят набор "Ирисы Фишера".
-Для составления карты классификации параметр $k$ равен 6, а $w(i)=(0.5)^i$.
+Для составления карты классификации параметр ![k](http://www.sciweavers.org/upload/Tex2Img_1538633578/render.png) равен 6, а ![www](http://www.sciweavers.org/upload/Tex2Img_1538633869/render.png).
 Карта классификации выглядит следующим образом:
 
 ![KNN](https://github.com/SimfikDuke/Rprojects/blob/master/MetricalAlgorithms/KNN_classification.png)
 
 **5. LOO (leave-one-out) для алгоритма KWNN:**
 
-Оценка скользящего контроля для различных значений $w$ алгоритма KWNN при $k=6$: 
+Оценка скользящего контроля для различных значений $w$ алгоритма KWNN при ![w](http://www.sciweavers.org/upload/Tex2Img_1538633788/render.png): 
 
 ![LOO(K,W)](https://github.com/SimfikDuke/Rprojects/blob/master/MetricalAlgorithms/LOO(K,W)_KWNN.png)
 
-На данном графике можно наблюдать превосходсво алгоритма KWNN над, поскольку если в алгоритм KWNN поставить $w(i)=1^i$, то полученный алгоритм будет подобен алгоритму KNN. 
-На графике LOO(K,W) можно наблюдать, что ошибка при $w(i)=0.5^i$ меньше, чем при $w(i)=1^i$
+На данном графике можно наблюдать превосходсво алгоритма KWNN над, поскольку если в алгоритм KWNN поставить ![ww](http://www.sciweavers.org/upload/Tex2Img_1538633831/render.png), то полученный алгоритм будет подобен алгоритму KNN. 
+На графике LOO(K,W) можно наблюдать, что ошибка при ![www](http://www.sciweavers.org/upload/Tex2Img_1538633869/render.png) меньше, чем при ![ww](http://www.sciweavers.org/upload/Tex2Img_1538633831/render.png)
