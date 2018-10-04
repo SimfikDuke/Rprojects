@@ -111,7 +111,7 @@ LOOKNN <- function(x){
          err[j] <- 1
       }
     }
-    mark[i] <- sum(err)
+    mark[i] <- sum(err)/len
   }
   plot(mark,type = "l",main = "LOO(k) алгоритма KNN",xlab = "k", ylab="оценка")
 }
@@ -134,7 +134,7 @@ LOOKWNN <- function(x,k=6){
       class2 <- x[j,n+1]
       if (class1 != class2) err[j] <- 1
     }
-    mark[i,] <- c(w,sum(err))
+    mark[i,] <- c(w,sum(err)/m)
   }
   plot(mark,type = "l",main = "LOO(k,w) алгоритма KWNN",xlab = "w,  k=6", ylab="оценка")
 }
@@ -159,7 +159,7 @@ marginKWNN <- function(x,k=6,w=0.5){
   return(margin)
 }
 
-read.table("my_iris")
+read.table("my__")
 plotIris(listIrises, "Карта классификации 1NN")
 classMapFNN(listIrises)
 plotIris(listIrises, "Карта классификации KNN, k=6")
