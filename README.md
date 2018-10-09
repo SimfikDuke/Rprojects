@@ -15,7 +15,7 @@
 В качестве выборки был взят набор "Ирисы Фишера"
 Карта классификации выглядит следующим образом:
 
-![1NN](https://github.com/SimfikDuke/Rprojects/blob/master/MetricalAlgorithms/1NN_classification.png)
+![1NN](https://github.com/SimfikDuke/Rprojects/blob/master/img/1NN_classification.png)
 
 **2. Алгоритм классификации "KNN" k-ближайших соседей:**
    
@@ -26,13 +26,13 @@
 Для составления карты классификации параметр ![k](http://www.sciweavers.org/upload/Tex2Img_1538633578/render.png) равен 6.
 Карта классификации выглядит следующим образом:
 
-![KNN](https://github.com/SimfikDuke/Rprojects/blob/master/MetricalAlgorithms/KNN_classification.png)
+![KNN](https://github.com/SimfikDuke/Rprojects/blob/master/img/KNN_classification.png)
 
 **3. LOO (leave-one-out) для алгоритма KNN:**
 
 Оценка скользящего контроля для различных значений ![k](http://www.sciweavers.org/upload/Tex2Img_1538633578/render.png) алгоритма KNN: 
 
-![LOO(K)](https://github.com/SimfikDuke/Rprojects/blob/master/MetricalAlgorithms/LOO(K).png)
+![LOO(K)](https://github.com/SimfikDuke/Rprojects/blob/master/img/LOO(K).png)
 
 **4. Алгоритм классификации "KWNN" k-взвешенных соседей:**
    
@@ -44,13 +44,13 @@
 Для составления карты классификации параметр ![k](http://www.sciweavers.org/upload/Tex2Img_1538633578/render.png) равен 6, а ![www](http://www.sciweavers.org/upload/Tex2Img_1538633869/render.png).
 Карта классификации выглядит следующим образом:
 
-![KNN](https://github.com/SimfikDuke/Rprojects/blob/master/MetricalAlgorithms/KNN_classification.png)
+![KNN](https://github.com/SimfikDuke/Rprojects/blob/master/img/KNN_classification.png)
 
 **5. LOO (leave-one-out) для алгоритма KWNN:**
 
 Оценка скользящего контроля для различных значений $w$ алгоритма KWNN при ![w](http://www.sciweavers.org/upload/Tex2Img_1538633788/render.png): 
 
-![LOO(K,W)](https://github.com/SimfikDuke/Rprojects/blob/master/MetricalAlgorithms/LOO(K,W)_KWNN.png)
+![LOO(K,W)](https://github.com/SimfikDuke/Rprojects/blob/master/img/LOO(K,W)_KWNN.png)
 
 На данном графике можно наблюдать превосходсво алгоритма KWNN над, поскольку если в алгоритм KWNN поставить ![ww](http://www.sciweavers.org/upload/Tex2Img_1538633831/render.png), то полученный алгоритм будет подобен алгоритму KNN. 
 На графике LOO(K,W) можно наблюдать, что ошибка при ![www](http://www.sciweavers.org/upload/Tex2Img_1538633869/render.png) меньше, чем при ![ww](http://www.sciweavers.org/upload/Tex2Img_1538633831/render.png)
