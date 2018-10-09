@@ -209,7 +209,7 @@ marginKWNN <- function(x,k=6,w=0.5){
   return(margin)
 }
 
-listIrises <- read.table("my__")
+listIrises <- read.table("iris_1")
 #plotIris(listIrises, "Карта классификации 1NN")
 #classMapFNN(listIrises)
 #plotIris(listIrises, "Карта классификации KNN, k=6")
