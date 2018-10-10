@@ -15,6 +15,8 @@ eDist <- function(u, v) {
 FNN <- function(x,z){
   m <- dim(x)[1]
   n <- dim(x)[2] - 1
+  print(m)
+  print(n)
   dist <- matrix(NA, m, n)
   for (i in m:1)  dist[i,] <- c(i, eDist(x[i,1:n], z))
   return (x[order(dist[,2])[1],n+1]);
@@ -94,25 +96,6 @@ classMapKWNN <- function(ir=iris,k=6,w=0.5){
     }
   }
 }
-badLOOKNN <- function(x){
-  len <- dim(x)[1]
-  n <- dim(x)[2]-1
-  mark <- rep(0,len)
-  for(i in 1:len){
-    k <- i
-    err <- rep(0,len)
-    for(j in 1:len){
-      x1 <- x[-j,]
-      z <- x[j,]
-      z <- c(z[1,3],z[1,4])
-      if (KNN(x1[3:5],z,k) != x[j,n+1]){
-         err[j] <- 1
-      }
-    }
-    mark[i] <- sum(err)/len
-  }
-  plot(mark,type = "l",main = "LOO(k) алгоритма KNN",xlab = "k", ylab="оценка")
-}
 #Функция отрисовка графика оценки точности алгоритма KNN при помощи скользящего контроля
 LOOKNN <- function(x){
   len <- dim(x)[1]
@@ -136,9 +119,14 @@ LOOKNN <- function(x){
   }
   print(mark)
   print(which.min(mark))
+  min_point <- c(which.min(mark), round(min(mark),4))
+  text <- paste("k=",min_point[1],"\nLOO=",min_point[2],sep="")
   plot(mark,type = "l",main = "LOO(k) алгоритма KNN",xlab = "k", ylab="оценка")
+  points(min_point[1], min_point[2]+0.01, pch=19, col="black", bg="black")
+  text(min_point[1]+5,min_point[2]+0.1,labels=text)
 }
-newLOOKWNN <- function(x, k=6){
+#Функция отрисовка графика оценки точности алгоритма KWNN при помощи скользящего контроля
+LOOKWNN <- function(x, k=6){
   m <- dim(x)[1]
   n <- dim(x)[2]-1
   q <- seq(0.05,0.95,0.05)
@@ -162,31 +150,13 @@ newLOOKWNN <- function(x, k=6){
       }
     }
   }
+  min_point <- c(q[which.min(mark)], round(min(mark),4))
+  text <- paste("k=",k," q=",min_point[1],"\nLOO=",min_point[2],sep="")
   print(mark)
   print(which.min(mark))
   plot(q,mark,type = "l",main = "LOO(k,q) алгоритма KWNN",xlab = "q", ylab="оценка")
-}
-#Функция отрисовка графика оценки точности алгоритма KWNN при помощи скользящего контроля
-LOOKWNN <- function(x,k=6){
-  n <- dim(x)[2]-1
-  m <- dim(x)[1]
-  q <- seq(0.05,1,0.05)
-  len <- length(q)
-  mark <- matrix(0,len,2)
-  for(i in 1:len){
-    w <- q[i]
-    err <- rep(0,m)
-    for(j in 1:m){
-      x1 <- x[-j,]
-      z <- x[j,]
-      z <- c(z[1,n-1],z[1,n])
-      class1 <- KWNN(x1[3:5],z,k,w)
-      class2 <- x[j,n+1]
-      if (class1 != class2) err[j] <- 1
-    }
-    mark[i,] <- c(w,sum(err)/m)
-  }
-  plot(mark,type = "l",main = "LOO(k,w) алгоритма KWNN",xlab = "w,  k=6", ylab="оценка")
+  points(min_point[1], min_point[2], pch=19, col="black", bg="black")
+  text(min_point[1]+0.06,min_point[2]+0.0026,labels=text)
 }
 
 #Функция возвращает отступы выборки, используя алгоритм KWNN
@@ -210,22 +180,14 @@ marginKWNN <- function(x,k=6,w=0.5){
 }
 
 #listIrises <- read.table("/users/Duke/AnotherProjects/R/MetricalAlgorithms/iris_1")
-plotIris(iris, "Карта классификации 1NN")
-classMapFNN(iris)
+#plotIris(iris, "Карта классификации 1NN")
+#classMapFNN(iris)
 
-
-LOOKNN(iris[,3:5])
-plotIris(iris, "Карта классификации KNN, k=6")
-classMapKNN(listIrises)
-
-newLOOKWNN(iris[,3:5])
-plotIris(iris, "Карта классификации KWNN, k=6, w=0.5")
+#LOOKNN(iris[,3:5])
+#plotIris(iris, "Карта классификации KNN, k=6")
+#classMapKNN(iris)
+knn <- par(mfrow=c(1,2))
+LOOKWNN(iris[,3:5])
+plotIris(iris, "Карта классификации KWNN, k=6, q=0.5")
 classMapKWNN(iris)
-#LOOKWNN(listIrises)
-  #plotKWNN(2.5,1,listIrises,6,0.5)
-  #classMapKNN(listIrises)
-  #LOOKWNN(listIrises)
-  #m <- marginKWNN(iris[3:5],6,0.5)
-  #etalon <- iris[which(m > 0.95),3:5]
-  #etalon <- intersect(etalon,etalon)
-  #plot(etalon[1:2], bg=colors[etalon$Species], pch=21)
+par(knn)

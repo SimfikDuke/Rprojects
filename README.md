@@ -18,7 +18,7 @@
 В качестве выборки был взят набор "Ирисы Фишера"  
 Карта классификации выглядит следующим образом:  
 
-![1NN](https://github.com/SimfikDuke/Rprojects/blob/master/img/1NN_classification.png)
+![1NN](https://github.com/SimfikDuke/Rprojects/blob/master/img/1NN.png)
 
 Недостатки:
 
