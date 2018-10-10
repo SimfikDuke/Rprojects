@@ -1,4 +1,4 @@
-colors <- c("setosa" = "red", "versicolor" = "green3", "virginica" = "blue")
+﻿colors <- c("setosa" = "red", "versicolor" = "green3", "virginica" = "blue")
 
 #Функция отрисовки набора
 plotIris <- function(ir=iris,label="Классификация"){
