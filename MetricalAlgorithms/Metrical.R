@@ -179,6 +179,20 @@ marginKWNN <- function(x,k=6,w=0.5){
   return(margin)
 }
 
+#Демонстрация преимущества алгоритма взвешенных соседей
+demonstration <- function(){
+  demo_iris <- read.table("/users/Duke/AnotherProjects/R/MetricalAlgorithms/iris_demo")
+  plotIris(demo_iris)
+  demo_plot <- par(mfrow=c(1,2))
+  demo_point <- c(1.8,0.4)
+  plotIris(demo_iris, "Классификация точки с помощью kNN, k=7")
+  plotKNN(demo_point[1],demo_point[2],demo_iris,k=7)
+  text(demo_point[1]+0.58,demo_point[2], paste("class =",KNN(demo_iris[,3:5],demo_point,7)))
+  plotIris(demo_iris, "Классификация точки с помощью kwNN, k=7, q=0.5")
+  plotKWNN(demo_point[1],demo_point[2],demo_iris,k=7,w=0.5)
+  text(demo_point[1]+0.48,demo_point[2], paste("class =",KWNN(demo_iris[,3:5],demo_point,7)))
+  par(demo_plot)
+}
 #listIrises <- read.table("/users/Duke/AnotherProjects/R/MetricalAlgorithms/iris_1")
 #plotIris(iris, "Карта классификации 1NN")
 #classMapFNN(iris)
@@ -186,8 +200,9 @@ marginKWNN <- function(x,k=6,w=0.5){
 #LOOKNN(iris[,3:5])
 #plotIris(iris, "Карта классификации KNN, k=6")
 #classMapKNN(iris)
-knn <- par(mfrow=c(1,2))
-LOOKWNN(iris[,3:5])
-plotIris(iris, "Карта классификации KWNN, k=6, q=0.5")
-classMapKWNN(iris)
-par(knn)
+#knn <- par(mfrow=c(1,2))
+#LOOKWNN(iris[,3:5])
+#plotIris(iris, "Карта классификации KWNN, k=6, q=0.5")
+#classMapKWNN(iris)
+#par(knn)
+demonstration()
