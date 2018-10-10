@@ -164,7 +164,7 @@ newLOOKWNN <- function(x, k=6){
   }
   print(mark)
   print(which.min(mark))
-  plot(q,mark,type = "l",main = "LOO(k,w) алгоритма KWNN",xlab = "k", ylab="оценка")
+  plot(q,mark,type = "l",main = "LOO(k,q) алгоритма KWNN",xlab = "q", ylab="оценка")
 }
 #Функция отрисовка графика оценки точности алгоритма KWNN при помощи скользящего контроля
 LOOKWNN <- function(x,k=6){
@@ -209,19 +209,18 @@ marginKWNN <- function(x,k=6,w=0.5){
   return(margin)
 }
 
-listIrises <- read.table("iris_1")
-#plotIris(listIrises, "Карта классификации 1NN")
-#classMapFNN(listIrises)
-#plotIris(listIrises, "Карта классификации KNN, k=6")
-#classMapKNN(listIrises)
-#plotIris(listIrises, "Карта классификации KWNN, k=6, w=0.5")
-#classMapKWNN(listIrises)
-#LOOKNN(iris[,3:5])
-k <- 19
-w <- 0.25
-classMapKWNN(iris,k,w)
-newLOOKWNN(listIrises[,3:5],k)
-newLOOKWNN(iris[,3:5],k)
+#listIrises <- read.table("/users/Duke/AnotherProjects/R/MetricalAlgorithms/iris_1")
+plotIris(iris, "Карта классификации 1NN")
+classMapFNN(iris)
+
+
+LOOKNN(iris[,3:5])
+plotIris(iris, "Карта классификации KNN, k=6")
+classMapKNN(listIrises)
+
+newLOOKWNN(iris[,3:5])
+plotIris(iris, "Карта классификации KWNN, k=6, w=0.5")
+classMapKWNN(iris)
 #LOOKWNN(listIrises)
   #plotKWNN(2.5,1,listIrises,6,0.5)
   #classMapKNN(listIrises)
