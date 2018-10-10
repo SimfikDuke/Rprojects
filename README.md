@@ -54,4 +54,4 @@
 ![KWNN](https://github.com/SimfikDuke/Rprojects/blob/master/img/LOO_KWNN.png)
 
 На следующем графике наглядно продемонстрированно превосходство алгоритма классификации kwNN над алгоритмом kNN:
-!(KNN_KWNN)[]
+![KNN_KWNN](https://github.com/SimfikDuke/Rprojects/blob/master/img/KNN_KWNN.png)
