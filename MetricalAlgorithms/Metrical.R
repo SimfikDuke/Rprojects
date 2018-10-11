@@ -62,6 +62,10 @@ plotKNN <- function(z1,z2,x=iris,k=6){
 plotKWNN <- function(z1,z2,x=iris,k=6,w=0.5){
   points(z1, z2, pch = 21, col = colors[KWNN(x[,3:5],c(z1,z2),k,w)])
 }
+#Функция отрисовки объекта, классифицированного при помощи алгоритма parsen
+plotParsen <- function(z1,z2,x=iris,h=2,K=kE){
+  points(z1, z2, pch = 21, col = colors[parsen(x[,3:5],c(z1,z2),h,K)])
+}
 
 #Функция возвращает случайный набор ирисов Фишера заданной длины
 sampleIris <- function(count=15){
@@ -93,6 +97,15 @@ classMapKWNN <- function(ir=iris,k=6,w=0.5){
   for (i in seq(0,7,0.1)) {
     for (j in seq(0,2.5,0.1)){
       plotKWNN(i,j,ir,k)
+    }
+  }
+}
+
+#Функция отрисовки карты классификации алгоритма parsen
+classMapParsen <- function(ir=iris,h=2,K=kE){
+  for (i in seq(0,7,0.1)) {
+    for (j in seq(0,2.5,0.1)){
+      plotParsen(i,j,ir,h,K)
     }
   }
 }
@@ -178,6 +191,46 @@ marginKWNN <- function(x,k=6,w=0.5){
   }
   return(margin)
 }
+####################################################### 
+# Функции ядер
+kR <- function(z) 0.5 * (abs(z)<=1) # Прямоугольное
+kT <- function(z) (1 - abs(z))*(abs(z)<=1) #  Треугольное
+kQ <- function(z) (15/16)*(1 - z^2)^2 * (abs(z)<=1) # Квартическое
+kE <- function(z) (3/4)*(1-z^2) * (abs(z)<=1) # Епанечникова
+kG <- function(z) dnorm(z) # Гауссовское
+
+#Парзеновское окно
+parsen <- function(x, z, h, K){
+  m <- dim(x)[1]
+  n <- dim(x)[2]-1
+  count_classes <- length(names(table(x[,n+1])))
+  classes <- rep(0,count_classes)
+  names(classes) <- names(table(x[,n+1]))
+  for(i in 1:m){
+    y <- x[i,n+1]
+    dist <- eDist(x[i,1:n],z)
+    w <- K(dist/h)
+    classes[y] <- classes[y] + w
+  }
+  class <- NA
+  if(which.max(classes) != 0) class <- names(which.max(classes))
+  return(class)
+}
+LOO_parsen <- function(x,K){
+  m <- dim(x)[1]
+  n <- dim(x)[2] - 1
+  params <- seq(0.1,2,0.01)
+  mark <- rep(0,length(params))
+  for (h in 1:length(params)){
+    for (i in 1:m){
+      x1 <- x[-i,]
+      if (parsen(x1,x[i,1:n],params[h],K) != x[i,n+1]) mark[h] <- mark[h] + 1/m
+    }
+  }
+  print(mark)
+  plot(params, mark, type="l")
+}
+#######################################################
 
 #Демонстрация преимущества алгоритма взвешенных соседей
 demonstration <- function(){
@@ -199,10 +252,15 @@ demonstration <- function(){
 
 #plotIris(iris, "Карта классификации KNN, k=6")
 #classMapKNN(iris)
-knn <- par(mfrow=c(1,2))
-LOOKNN(iris[,3:5])
-LOOKWNN(iris[,3:5],k=19)
+#knn <- par(mfrow=c(1,2))
+#LOOKNN(iris[,3:5])
+#LOOKWNN(iris[,3:5],k=19)
 #plotIris(iris, "Карта классификации KWNN, k=6, q=0.5")
 #classMapKWNN(iris)
-par(knn)
+#par(knn)
 #demonstration()
+plotIris(iris)
+print(parsen(iris[,3:5],c(2,2),4,kR))
+plotParsen(3,1,iris,4,kE)
+#classMapParsen()
+LOO_parsen(iris[,3:5],kE)
