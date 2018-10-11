@@ -251,6 +251,38 @@ demonstration <- function(){
   text(demo_point[1]+0.48,demo_point[2], paste("class =",KWNN(demo_iris[,3:5],demo_point,7)))
   par(demo_plot)
 }
+# ќценка LOO и карты классификации дл€ различных €дер
+test_parsen_kernels <- function(){
+  loo <- par(mfrow=c(1,2))
+    LOO_parsen(iris[,3:5],kR)
+    plotIris(iris,"ѕр€моугольное €дро h=0.35")
+    classMapParsen(iris, 0.35, kR)
+  par(loo)
+  
+  loo <- par(mfrow=c(1,2))
+    LOO_parsen(iris[,3:5],kT)
+    plotIris(iris,"“реугольное €дро h=0.35")
+    classMapParsen(iris, 0.35, kT)
+  par(loo)
+  
+  loo <- par(mfrow=c(1,2))
+    LOO_parsen(iris[,3:5],kQ)
+    plotIris(iris," вартическое €дро €дро h=0.35")
+    classMapParsen(iris, 0.35, kQ)
+  par(loo)
+  
+  loo <- par(mfrow=c(1,2))
+    LOO_parsen(iris[,3:5],kE)
+    plotIris(iris,"ядро ≈понечникова h=0.35")
+    classMapParsen(iris, 0.35, kE)
+  par(loo)
+  
+  loo <- par(mfrow=c(1,2))
+    LOO_parsen(iris[,3:5],kG)
+    plotIris(iris,"ядро √аусса h=0.1")
+    classMapParsen(iris, 0.1, kG)
+  par(loo)
+}
 #listIrises <- read.table("/users/Duke/AnotherProjects/R/MetricalAlgorithms/iris_1")
 #plotIris(iris, " арта классификации 1NN")
 #classMapFNN(iris)
@@ -264,33 +296,3 @@ demonstration <- function(){
 #classMapKWNN(iris)
 #par(knn)
 #demonstration()
-
-loo <- par(mfrow=c(1,2))
-LOO_parsen(iris[,3:5],kR)
-plotIris(iris,"ѕр€моугольное €дро h=0.35")
-classMapParsen(iris, 0.35, kR)
-par(loo)
-
-loo <- par(mfrow=c(1,2))
-LOO_parsen(iris[,3:5],kT)
-plotIris(iris,"“реугольное €дро h=0.35")
-classMapParsen(iris, 0.35, kT)
-par(loo)
-
-loo <- par(mfrow=c(1,2))
-LOO_parsen(iris[,3:5],kQ)
-plotIris(iris," вартическое €дро €дро h=0.35")
-classMapParsen(iris, 0.35, kQ)
-par(loo)
-
-loo <- par(mfrow=c(1,2))
-LOO_parsen(iris[,3:5],kE)
-plotIris(iris,"ядро ≈понечникова h=0.35")
-classMapParsen(iris, 0.35, kE)
-par(loo)
-
-loo <- par(mfrow=c(1,2))
-LOO_parsen(iris[,3:5],kR)
-plotIris(iris,"ядро √аусса h=0.1")
-classMapParsen(iris, 0.1, kR)
-par(loo)
