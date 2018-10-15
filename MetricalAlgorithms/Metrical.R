@@ -1,17 +1,17 @@
 colors <- c("setosa" = "red", "versicolor" = "green3", "virginica" = "blue", "unknown"="grey")
 
-#Ôóíêöèÿ îòðèñîâêè íàáîðà
-plotIris <- function(ir=iris,label="Êëàññèôèêàöèÿ"){
+#Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÐ¸ Ð½Ð°Ð±Ð¾Ñ€Ð°
+plotIris <- function(ir=iris,label="ÐšÐ»Ð°ÑÑÐ¸Ñ„Ð¸ÐºÐ°Ñ†Ð¸Ñ"){
   plot(ir[, 3:4], pch = 21, bg = colors[ir$Species], col = colors[ir$Species],
-       xlab="Äëèíà ëåïåñòêà",ylab="Øèðèíà ëåïåñòêà",main=label)
+       xlab="Ð”Ð»Ð¸Ð½Ð° Ð»ÐµÐ¿ÐµÑÑ‚ÐºÐ°",ylab="Ð¨Ð¸Ñ€Ð¸Ð½Ð° Ð»ÐµÐ¿ÐµÑÑ‚ÐºÐ°",main=label)
 }
 
-#Ôóíêöèÿ ìåòðèêè
+#Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¼ÐµÑ‚Ñ€Ð¸ÐºÐ¸
 eDist <- function(u, v) {
   sqrt(sum((u - v)^2))
 }
 
-#Ôóíêöèÿ îïðåäåëåíèÿ êëàññà ïðè ïîìîùè àëãîðèòìà 1NN
+#Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÐµÐ½Ð¸Ñ ÐºÐ»Ð°ÑÑÐ° Ð¿Ñ€Ð¸ Ð¿Ð¾Ð¼Ð¾Ñ‰Ð¸ Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼Ð° 1NN
 FNN <- function(x,z){
   m <- dim(x)[1]
   n <- dim(x)[2] - 1
@@ -22,7 +22,7 @@ FNN <- function(x,z){
   return (x[order(dist[,2])[1],n+1]);
 }
 
-#Ôóíêöèÿ îïðåäåëåíèÿ êëàññà ïðè ïîìîùè àëãîðèòìà KNN
+#Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÐµÐ½Ð¸Ñ ÐºÐ»Ð°ÑÑÐ° Ð¿Ñ€Ð¸ Ð¿Ð¾Ð¼Ð¾Ñ‰Ð¸ Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼Ð° KNN
 KNN <- function(x,z,k=6){
   m <- dim(x)[1]
   n <- dim(x)[2] - 1
@@ -33,7 +33,7 @@ KNN <- function(x,z,k=6){
   return(class)
 }
 
-#Ôóíêöèÿ îïðåäåëåíèÿ êëàññà ïðè ïîìîùè àëãîðèòìà KWNN
+#Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÐµÐ½Ð¸Ñ ÐºÐ»Ð°ÑÑÐ° Ð¿Ñ€Ð¸ Ð¿Ð¾Ð¼Ð¾Ñ‰Ð¸ Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼Ð° KWNN
 KWNN <- function(x,z,k=6,w=0.5){
   m <- dim(x)[1]
   n <- dim(x)[2] - 1
@@ -47,34 +47,34 @@ KWNN <- function(x,z,k=6,w=0.5){
   return(class)
 }
 
-#Ôóíêöèÿ îòðèñîâêè îáúåêòà, êëàññèôèöèðîâàííîãî ïðè ïîìîùè àëãîðèòìà 1NN
+#Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÐ¸ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°, ÐºÐ»Ð°ÑÑÐ¸Ñ„Ð¸Ñ†Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ð¾Ð³Ð¾ Ð¿Ñ€Ð¸ Ð¿Ð¾Ð¼Ð¾Ñ‰Ð¸ Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼Ð° 1NN
 plotFNN <- function(z1,z2,x=iris){
   points(z1, z2, pch = 21, col = colors[FNN(x[,3:5],c(z1,z2))])
 }
 
-#Ôóíêöèÿ îòðèñîâêè îáúåêòà, êëàññèôèöèðîâàííîãî ïðè ïîìîùè àëãîðèòìà KNN
+#Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÐ¸ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°, ÐºÐ»Ð°ÑÑÐ¸Ñ„Ð¸Ñ†Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ð¾Ð³Ð¾ Ð¿Ñ€Ð¸ Ð¿Ð¾Ð¼Ð¾Ñ‰Ð¸ Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼Ð° KNN
 plotKNN <- function(z1,z2,x=iris,k=6){
   points(z1, z2, pch = 21, col = colors[KNN(x[,3:5],c(z1,z2),k)])
 }
 
 
-#Ôóíêöèÿ îòðèñîâêè îáúåêòà, êëàññèôèöèðîâàííîãî ïðè ïîìîùè àëãîðèòìà KWNN
+#Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÐ¸ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°, ÐºÐ»Ð°ÑÑÐ¸Ñ„Ð¸Ñ†Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ð¾Ð³Ð¾ Ð¿Ñ€Ð¸ Ð¿Ð¾Ð¼Ð¾Ñ‰Ð¸ Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼Ð° KWNN
 plotKWNN <- function(z1,z2,x=iris,k=6,w=0.5){
   points(z1, z2, pch = 21, col = colors[KWNN(x[,3:5],c(z1,z2),k,w)])
 }
-#Ôóíêöèÿ îòðèñîâêè îáúåêòà, êëàññèôèöèðîâàííîãî ïðè ïîìîùè àëãîðèòìà parsen
+#Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÐ¸ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°, ÐºÐ»Ð°ÑÑÐ¸Ñ„Ð¸Ñ†Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ð¾Ð³Ð¾ Ð¿Ñ€Ð¸ Ð¿Ð¾Ð¼Ð¾Ñ‰Ð¸ Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼Ð° parsen
 plotParsen <- function(z1,z2,x=iris,h=2,K=kE){
   points(z1, z2, pch = 21, col = colors[parsen(x[,3:5],c(z1,z2),h,K)])
 }
 
-#Ôóíêöèÿ âîçâðàùàåò ñëó÷àéíûé íàáîð èðèñîâ Ôèøåðà çàäàííîé äëèíû
+#Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ ÑÐ»ÑƒÑ‡Ð°Ð¹Ð½Ñ‹Ð¹ Ð½Ð°Ð±Ð¾Ñ€ Ð¸Ñ€Ð¸ÑÐ¾Ð² Ð¤Ð¸ÑˆÐµÑ€Ð° Ð·Ð°Ð´Ð°Ð½Ð½Ð¾Ð¹ Ð´Ð»Ð¸Ð½Ñ‹
 sampleIris <- function(count=15){
   t <- intersect(iris[,3:5],iris[3:5])
   listIndex <- sample(rownames(t),count)
   return(iris[listIndex,])
 }
 
-#Ôóíêöèÿ îòðèñîâêè êàðòû êëàññèôèêàöèè àëãîðèòìà 1NN
+#Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÐ¸ ÐºÐ°Ñ€Ñ‚Ñ‹ ÐºÐ»Ð°ÑÑÐ¸Ñ„Ð¸ÐºÐ°Ñ†Ð¸Ð¸ Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼Ð° 1NN
 classMapFNN <- function(ir=iris){
   for (i in seq(0,7,0.1)) {
     for (j in seq(0,2.5,0.1)){
@@ -83,7 +83,7 @@ classMapFNN <- function(ir=iris){
   }
 }
 
-#Ôóíêöèÿ îòðèñîâêè êàðòû êëàññèôèêàöèè àëãîðèòìà KNN
+#Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÐ¸ ÐºÐ°Ñ€Ñ‚Ñ‹ ÐºÐ»Ð°ÑÑÐ¸Ñ„Ð¸ÐºÐ°Ñ†Ð¸Ð¸ Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼Ð° KNN
 classMapKNN <- function(ir=iris,k=6){
   for (i in seq(0,7,0.1)) {
     for (j in seq(0,2.5,0.1)){
@@ -92,7 +92,7 @@ classMapKNN <- function(ir=iris,k=6){
   }
 }
 
-#Ôóíêöèÿ îòðèñîâêè êàðòû êëàññèôèêàöèè àëãîðèòìà KWNN
+#Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÐ¸ ÐºÐ°Ñ€Ñ‚Ñ‹ ÐºÐ»Ð°ÑÑÐ¸Ñ„Ð¸ÐºÐ°Ñ†Ð¸Ð¸ Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼Ð° KWNN
 classMapKWNN <- function(ir=iris,k=6,w=0.5){
   for (i in seq(0,7,0.1)) {
     for (j in seq(0,2.5,0.1)){
@@ -101,7 +101,7 @@ classMapKWNN <- function(ir=iris,k=6,w=0.5){
   }
 }
 
-#Ôóíêöèÿ îòðèñîâêè êàðòû êëàññèôèêàöèè àëãîðèòìà parsen
+#Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÐ¸ ÐºÐ°Ñ€Ñ‚Ñ‹ ÐºÐ»Ð°ÑÑÐ¸Ñ„Ð¸ÐºÐ°Ñ†Ð¸Ð¸ Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼Ð° parsen
 classMapParsen <- function(ir=iris,h=2,K=kE){
   for (i in seq(0,7,0.1)) {
     for (j in seq(0,2.5,0.1)){
@@ -109,7 +109,7 @@ classMapParsen <- function(ir=iris,h=2,K=kE){
     }
   }
 }
-#Ôóíêöèÿ îòðèñîâêà ãðàôèêà îöåíêè òî÷íîñòè àëãîðèòìà KNN ïðè ïîìîùè ñêîëüçÿùåãî êîíòðîëÿ
+#Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÐ° Ð³Ñ€Ð°Ñ„Ð¸ÐºÐ° Ð¾Ñ†ÐµÐ½ÐºÐ¸ Ñ‚Ð¾Ñ‡Ð½Ð¾ÑÑ‚Ð¸ Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼Ð° KNN Ð¿Ñ€Ð¸ Ð¿Ð¾Ð¼Ð¾Ñ‰Ð¸ ÑÐºÐ¾Ð»ÑŒÐ·ÑÑ‰ÐµÐ³Ð¾ ÐºÐ¾Ð½Ñ‚Ñ€Ð¾Ð»Ñ
 LOOKNN <- function(x){
   len <- dim(x)[1]
   n <- dim(x)[2]-1
@@ -134,11 +134,11 @@ LOOKNN <- function(x){
   print(which.min(mark))
   min_point <- c(which.min(mark), round(min(mark),4))
   text <- paste("k=",min_point[1],"\nLOO=",min_point[2],sep="")
-  plot(mark,type = "l",main = "LOO(k) àëãîðèòìà KNN",xlab = "k", ylab="îöåíêà")
+  plot(mark,type = "l",main = "LOO(k) Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼Ð° KNN",xlab = "k", ylab="Ð¾Ñ†ÐµÐ½ÐºÐ°")
   points(min_point[1], min_point[2]+0.01, pch=19, col="black", bg="black")
   text(min_point[1]+5,min_point[2]+0.1,labels=text)
 }
-#Ôóíêöèÿ îòðèñîâêà ãðàôèêà îöåíêè òî÷íîñòè àëãîðèòìà KWNN ïðè ïîìîùè ñêîëüçÿùåãî êîíòðîëÿ
+#Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÐ° Ð³Ñ€Ð°Ñ„Ð¸ÐºÐ° Ð¾Ñ†ÐµÐ½ÐºÐ¸ Ñ‚Ð¾Ñ‡Ð½Ð¾ÑÑ‚Ð¸ Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼Ð° KWNN Ð¿Ñ€Ð¸ Ð¿Ð¾Ð¼Ð¾Ñ‰Ð¸ ÑÐºÐ¾Ð»ÑŒÐ·ÑÑ‰ÐµÐ³Ð¾ ÐºÐ¾Ð½Ñ‚Ñ€Ð¾Ð»Ñ
 LOOKWNN <- function(x, k=6){
   m <- dim(x)[1]
   n <- dim(x)[2]-1
@@ -167,12 +167,12 @@ LOOKWNN <- function(x, k=6){
   text <- paste("k=",k," q=",min_point[1],"\nLOO=",min_point[2],sep="")
   print(mark)
   print(which.min(mark))
-  plot(q,mark,type = "l",main = "LOO(k,q) àëãîðèòìà KWNN",xlab = "q", ylab="îöåíêà")
+  plot(q,mark,type = "l",main = "LOO(k,q) Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼Ð° KWNN",xlab = "q", ylab="Ð¾Ñ†ÐµÐ½ÐºÐ°")
   points(min_point[1], min_point[2], pch=19, col="black", bg="black")
   text(min_point[1]+0.06,min_point[2]+0.0026,labels=text)
 }
 
-#Ôóíêöèÿ âîçâðàùàåò îòñòóïû âûáîðêè, èñïîëüçóÿ àëãîðèòì KWNN
+#Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ð¾Ñ‚ÑÑ‚ÑƒÐ¿Ñ‹ Ð²Ñ‹Ð±Ð¾Ñ€ÐºÐ¸, Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÑ Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼ KWNN
 marginKWNN <- function(x,k=6,w=0.5){
   m <- dim(x)[1]
   n <- dim(x)[2]-1
@@ -192,14 +192,14 @@ marginKWNN <- function(x,k=6,w=0.5){
   return(margin)
 }
 ####################################################### 
-# Ôóíêöèè ÿäåð
-kR <- function(z) 0.5 * (abs(z)<=1) # Ïðÿìîóãîëüíîå
-kT <- function(z) (1 - abs(z))*(abs(z)<=1) #  Òðåóãîëüíîå
-kQ <- function(z) (15/16)*(1 - z^2)^2 * (abs(z)<=1) # Êâàðòè÷åñêîå
-kE <- function(z) (3/4)*(1-z^2) * (abs(z)<=1) # Åïàíå÷íèêîâà
-kG <- function(z) dnorm(z) # Ãàóññîâñêîå
+# Ð¤ÑƒÐ½ÐºÑ†Ð¸Ð¸ ÑÐ´ÐµÑ€
+kR <- function(z) 0.5 * (abs(z)<=1) # ÐŸÑ€ÑÐ¼Ð¾ÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¾Ðµ
+kT <- function(z) (1 - abs(z))*(abs(z)<=1) #  Ð¢Ñ€ÐµÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¾Ðµ
+kQ <- function(z) (15/16)*(1 - z^2)^2 * (abs(z)<=1) # ÐšÐ²Ð°Ñ€Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¾Ðµ
+kE <- function(z) (3/4)*(1-z^2) * (abs(z)<=1) # Ð•Ð¿Ð°Ð½ÐµÑ‡Ð½Ð¸ÐºÐ¾Ð²Ð°
+kG <- function(z) dnorm(z) # Ð“Ð°ÑƒÑÑÐ¾Ð²ÑÐºÐ¾Ðµ
 
-#Ïàðçåíîâñêîå îêíî #h_opt: kR - 0.35; kT - 0.35, kQ - 0.35; kE - 0.35; kG - 0.1
+#ÐŸÐ°Ñ€Ð·ÐµÐ½Ð¾Ð²ÑÐºÐ¾Ðµ Ð¾ÐºÐ½Ð¾ #h_opt: kR - 0.35; kT - 0.35, kQ - 0.35; kE - 0.35; kG - 0.1
 parsen <- function(x, z, h, K){
   m <- dim(x)[1]
   n <- dim(x)[2]-1
@@ -216,7 +216,7 @@ parsen <- function(x, z, h, K){
   else class <- "unknown"
   return(class)
 }
-LOO_parsen <- function(x,K,labels="LOO äëÿ ïàðçåíîâñêîãî îêíà"){
+LOO_parsen <- function(x,K,labels="LOO Ð´Ð»Ñ Ð¿Ð°Ñ€Ð·ÐµÐ½Ð¾Ð²ÑÐºÐ¾Ð³Ð¾ Ð¾ÐºÐ½Ð°"){
   m <- dim(x)[1]
   n <- dim(x)[2] - 1
   params <- seq(0.1,2,0.05)
@@ -229,7 +229,7 @@ LOO_parsen <- function(x,K,labels="LOO äëÿ ïàðçåíîâñêîãî îêíà"){
       if (class1 != class2) mark[h] <- mark[h] + 1/m
     }
   }
-  plot(params, mark, type="l",xlab="Øèðèíà îêíà", ylab="Îöåíêà", main=labels)
+  plot(params, mark, type="l",xlab="Ð¨Ð¸Ñ€Ð¸Ð½Ð° Ð¾ÐºÐ½Ð°", ylab="ÐžÑ†ÐµÐ½ÐºÐ°", main=labels)
   min_point <- c(params[which.min(mark)], round(min(mark),4))
   text <- paste(" h=",min_point[1],"\nLOO=",min_point[2],sep="")
   points(min_point[1], min_point[2], pch=19, col="blue", bg="black")
@@ -237,62 +237,62 @@ LOO_parsen <- function(x,K,labels="LOO äëÿ ïàðçåíîâñêîãî îêíà"){
 }
 #######################################################
 
-#Äåìîíñòðàöèÿ ïðåèìóùåñòâà àëãîðèòìà âçâåøåííûõ ñîñåäåé
+#Ð”ÐµÐ¼Ð¾Ð½ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ Ð¿Ñ€ÐµÐ¸Ð¼ÑƒÑ‰ÐµÑÑ‚Ð²Ð° Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼Ð° Ð²Ð·Ð²ÐµÑˆÐµÐ½Ð½Ñ‹Ñ… ÑÐ¾ÑÐµÐ´ÐµÐ¹
 demonstration <- function(){
   demo_iris <- read.table("/users/Duke/AnotherProjects/R/MetricalAlgorithms/iris_demo")
   plotIris(demo_iris)
   demo_plot <- par(mfrow=c(1,2))
   demo_point <- c(1.8,0.4)
-  plotIris(demo_iris, "Êëàññèôèêàöèÿ òî÷êè ñ ïîìîùüþ kNN, k=7")
+  plotIris(demo_iris, "ÐšÐ»Ð°ÑÑÐ¸Ñ„Ð¸ÐºÐ°Ñ†Ð¸Ñ Ñ‚Ð¾Ñ‡ÐºÐ¸ Ñ Ð¿Ð¾Ð¼Ð¾Ñ‰ÑŒÑŽ kNN, k=7")
   plotKNN(demo_point[1],demo_point[2],demo_iris,k=7)
   text(demo_point[1]+0.58,demo_point[2], paste("class =",KNN(demo_iris[,3:5],demo_point,7)))
-  plotIris(demo_iris, "Êëàññèôèêàöèÿ òî÷êè ñ ïîìîùüþ kwNN, k=7, q=0.5")
+  plotIris(demo_iris, "ÐšÐ»Ð°ÑÑÐ¸Ñ„Ð¸ÐºÐ°Ñ†Ð¸Ñ Ñ‚Ð¾Ñ‡ÐºÐ¸ Ñ Ð¿Ð¾Ð¼Ð¾Ñ‰ÑŒÑŽ kwNN, k=7, q=0.5")
   plotKWNN(demo_point[1],demo_point[2],demo_iris,k=7,w=0.5)
   text(demo_point[1]+0.48,demo_point[2], paste("class =",KWNN(demo_iris[,3:5],demo_point,7)))
   par(demo_plot)
 }
-# Îöåíêà LOO è êàðòû êëàññèôèêàöèè äëÿ ðàçëè÷íûõ ÿäåð
+# ÐžÑ†ÐµÐ½ÐºÐ° LOO Ð¸ ÐºÐ°Ñ€Ñ‚Ñ‹ ÐºÐ»Ð°ÑÑÐ¸Ñ„Ð¸ÐºÐ°Ñ†Ð¸Ð¸ Ð´Ð»Ñ Ñ€Ð°Ð·Ð»Ð¸Ñ‡Ð½Ñ‹Ñ… ÑÐ´ÐµÑ€
 test_parsen_kernels <- function(){
   loo <- par(mfrow=c(1,2))
     LOO_parsen(iris[,3:5],kR)
-    plotIris(iris,"Ïðÿìîóãîëüíîå ÿäðî h=0.35")
+    plotIris(iris,"ÐŸÑ€ÑÐ¼Ð¾ÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¾Ðµ ÑÐ´Ñ€Ð¾ h=0.35")
     classMapParsen(iris, 0.35, kR)
   par(loo)
   
   loo <- par(mfrow=c(1,2))
     LOO_parsen(iris[,3:5],kT)
-    plotIris(iris,"Òðåóãîëüíîå ÿäðî h=0.35")
+    plotIris(iris,"Ð¢Ñ€ÐµÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¾Ðµ ÑÐ´Ñ€Ð¾ h=0.35")
     classMapParsen(iris, 0.35, kT)
   par(loo)
   
   loo <- par(mfrow=c(1,2))
     LOO_parsen(iris[,3:5],kQ)
-    plotIris(iris,"Êâàðòè÷åñêîå ÿäðî ÿäðî h=0.35")
+    plotIris(iris,"ÐšÐ²Ð°Ñ€Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¾Ðµ ÑÐ´Ñ€Ð¾ ÑÐ´Ñ€Ð¾ h=0.35")
     classMapParsen(iris, 0.35, kQ)
   par(loo)
   
   loo <- par(mfrow=c(1,2))
     LOO_parsen(iris[,3:5],kE)
-    plotIris(iris,"ßäðî Åïîíå÷íèêîâà h=0.35")
+    plotIris(iris,"Ð¯Ð´Ñ€Ð¾ Ð•Ð¿Ð¾Ð½ÐµÑ‡Ð½Ð¸ÐºÐ¾Ð²Ð° h=0.35")
     classMapParsen(iris, 0.35, kE)
   par(loo)
   
   loo <- par(mfrow=c(1,2))
     LOO_parsen(iris[,3:5],kG)
-    plotIris(iris,"ßäðî Ãàóññà h=0.1")
+    plotIris(iris,"Ð¯Ð´Ñ€Ð¾ Ð“Ð°ÑƒÑÑÐ° h=0.1")
     classMapParsen(iris, 0.1, kG)
   par(loo)
 }
 #listIrises <- read.table("/users/Duke/AnotherProjects/R/MetricalAlgorithms/iris_1")
-#plotIris(iris, "Êàðòà êëàññèôèêàöèè 1NN")
+#plotIris(iris, "ÐšÐ°Ñ€Ñ‚Ð° ÐºÐ»Ð°ÑÑÐ¸Ñ„Ð¸ÐºÐ°Ñ†Ð¸Ð¸ 1NN")
 #classMapFNN(iris)
 
-#plotIris(iris, "Êàðòà êëàññèôèêàöèè KNN, k=6")
+#plotIris(iris, "ÐšÐ°Ñ€Ñ‚Ð° ÐºÐ»Ð°ÑÑÐ¸Ñ„Ð¸ÐºÐ°Ñ†Ð¸Ð¸ KNN, k=6")
 #classMapKNN(iris)
 #knn <- par(mfrow=c(1,2))
 #LOOKNN(iris[,3:5])
 #LOOKWNN(iris[,3:5],k=19)
-#plotIris(iris, "Êàðòà êëàññèôèêàöèè KWNN, k=6, q=0.5")
+#plotIris(iris, "ÐšÐ°Ñ€Ñ‚Ð° ÐºÐ»Ð°ÑÑÐ¸Ñ„Ð¸ÐºÐ°Ñ†Ð¸Ð¸ KWNN, k=6, q=0.5")
 #classMapKWNN(iris)
 #par(knn)
 #demonstration()
