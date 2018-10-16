@@ -41,7 +41,7 @@
 ![KNN](https://github.com/SimfikDuke/Rprojects/blob/master/img/LOO_KNN.png)
 
 **3. Алгоритм классификации "kwNN" k-взвешенных соседей:**  
-Недостаток kNN в том, что максимум может достигаться сразу на нескольких классах. В задачах с двумя классами этого можно избежать, если взять нечётное k. Более общая тактика, которая годится и для случая многих классов — ввести строго убывающую последовательность вещественных весов ![wi](https://latex.codecogs.com/gif.latex?w_i)
+Недостаток kNN в том, что максимум может достигаться сразу на нескольких классах. В задачах с двумя классами этого можно избежать, если взять нечётное k. Более общая тактика, которая годится и для случая многих классов — ввести строго убывающую последовательность вещественных весов ![w_i](https://latex.codecogs.com/gif.latex?w_i)
 , задающих вклад i-го соседа в классификацию.  
 Все объекты выборки сортируются по удаленности от классифицируемого объекта. Выбираются k ближайших соседей.
 Классифицируемый объект относим к тому классу, суммарный вес которого больше.
@@ -58,3 +58,24 @@
 
 На следующем графике показанно, что для выборки ирисов фишера, алгоритм k-ближайших соседей имеет минимальную оценку LOO=0.0333, а алгоритм k-взвешенных соседей, при k=19 и q=0.2 имеет минимальную оценку LOO=0.0267. Следовательно, качество классификации алгоритма kwNN лучше, чем kNN.
 ![LOO_LOO](https://github.com/SimfikDuke/Rprojects/blob/master/img/LOO_LOO.png)
+
+**Алгоритм классификации "Парзеновское окно":**
+В данном алгоритме выбирается следующий способ задать веса соседям : определить ![w_i](https://latex.codecogs.com/gif.latex?w_i) как функцию от расстояния ![rho](https://latex.codecogs.com/gif.latex?%24%5Crho%28u%2Cx_u%5E%7B%28i%29%7D%29%24), а не от ранга соседа i. Введём функцию ядра K(z), весовую функцию следующим образом: ![w_for_parsen](https://latex.codecogs.com/gif.latex?%24%24w%28u%2Ci%29%20%3D%20K%5Cleft%20%28%5Cfrac%7B1%7D%7Bh%7D%5Crho%28u%2Cx_u%5E%7B%28i%29%7D%29%20%5Cright%20%29%24%24), где параметр h - ширина окна.  
+Данный параметр будем подбирать по оценке скользящего контроля LOO и для различных ядер оптимальное значение ширины окна будет отличаться:
+
+Прямоугольное ядро:  
+Имеет следующий вид: ![R](https://latex.codecogs.com/gif.latex?R%28Z%29%20%3D%20%5Cfrac%7B1%7D%7B2%7D%5Cleft%20%5B%20%5Cleft%20%7C%20z%20%5Cleq%201%20%5Cright%20%7C%20%5Cright%20%5D)
+![LOO_parsen_R](https://github.com/SimfikDuke/Rprojects/blob/master/img/parsen_R.png)
+Треугольное ядро:  
+Имеет следующий вид: ![T](https://latex.codecogs.com/gif.latex?T%28Z%29%20%3D%20%281%20-%20%7Cz%7C%29%5Ccdot%20%5Cleft%20%5B%20%5Cleft%20%7C%20z%20%5Cleq%201%20%5Cright%20%7C%20%5Cright%20%5D)
+![LOO_parsen_T](https://github.com/SimfikDuke/Rprojects/blob/master/img/parsen_T.png)
+Квартическое ядро:  
+Имеет следующий вид: ![Q](https://latex.codecogs.com/gif.latex?Q%28Z%29%20%3D%20%5Cfrac%7B15%7D%7B16%7D%281%20-%20z%5E2%29%5E2%5Ccdot%20%5Cleft%20%5B%20%5Cleft%20%7C%20z%20%5Cleq%201%20%5Cright%20%7C%20%5Cright%20%5D)
+![LOO_parsen_Q](https://github.com/SimfikDuke/Rprojects/blob/master/img/parsen_Q.png)
+Ядро Епонечникова:  
+Имеет следующий вид: ![E](https://latex.codecogs.com/gif.latex?E%28Z%29%20%3D%20%5Cfrac%7B3%7D%7B4%7D%281%20-%20z%5E2%29%5Ccdot%20%5Cleft%20%5B%20%5Cleft%20%7C%20z%20%5Cleq%201%20%5Cright%20%7C%20%5Cright%20%5D)
+![LOO_parsen_E](https://github.com/SimfikDuke/Rprojects/blob/master/img/parsen_E.png)
+Гауссовское ядро:  
+Имеет следующий вид: ![G](https://latex.codecogs.com/gif.latex?%24%24G%28Z%29%20%3D%20dnorm%28z%29%24%24)
+![LOO_parsen_G](https://github.com/SimfikDuke/Rprojects/blob/master/img/parsen_G.png)
+
