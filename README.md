@@ -64,7 +64,7 @@
 ![w_for_parsen](https://latex.codecogs.com/gif.latex?%24%24w%28u%2Ci%29%20%3D%20K%5Cleft%20%28%5Cfrac%7B1%7D%7Bh%7D%5Crho%28u%2Cx_u%5E%7B%28i%29%7D%29%20%5Cright%20%29%24%24),
 где параметр h - ширина окна.  
 Данный параметр будем подбирать по оценке скользящего контроля LOO и для различных ядер оптимальное значение ширины окна будет отличаться:
-<p align="justify">
+
 **Прямоугольное ядро:**  
 Имеет следующий вид:  
 ![R](https://latex.codecogs.com/gif.latex?R%28Z%29%20%3D%20%5Cfrac%7B1%7D%7B2%7D%5Cleft%20%5B%20%5Cleft%20%7C%20z%20%5Cleq%201%20%5Cright%20%7C%20%5Cright%20%5D)  
@@ -90,4 +90,3 @@
 ![G](https://latex.codecogs.com/gif.latex?%24%24G%28Z%29%20%3D%20dnorm%28z%29%24%24)  
 Карта классификации выглядит следующим образом:
 ![LOO_parsen_G](https://github.com/SimfikDuke/Rprojects/blob/master/img/parsen_G.png)
-</p>
