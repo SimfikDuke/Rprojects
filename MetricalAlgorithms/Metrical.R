@@ -286,7 +286,12 @@ test_parsen_kernels <- function(){
 #listIrises <- read.table("/users/Duke/AnotherProjects/R/MetricalAlgorithms/iris_1")
 #plotIris(iris, "Карта классификации 1NN")
 #classMapFNN(iris)
-
+loo <- par(mfrow=c(1,2))
+plotIris(iris, "Карта классификации KWNN, k=6, q=0.5")
+classMapKWNN(iris)
+plotIris(iris,"Карта классификации парзеновского окна. Ядро Гаусса, h=0.1")
+classMapParsen(iris, 0.1, kG)
+par(loo)
 #plotIris(iris, "Карта классификации KNN, k=6")
 #classMapKNN(iris)
 #knn <- par(mfrow=c(1,2))
