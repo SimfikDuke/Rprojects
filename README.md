@@ -114,7 +114,7 @@
 
 Следующая таблица содержит сводку по реализованным методам:  
 
-
+<center><h3>
 <table>
   <tbody>
     <tr>
@@ -133,29 +133,30 @@
       <td>0.0267</td>
     </tr>
     <tr>
-      <td>Parzen</td>
-      <td>Rectangel kerel, h=0.35</td>
+      <td>Parzen, Rectangel kerel</td>
+      <td>h=0.35</td>
       <td>0.04</td>
     </tr>
     <tr>
-      <td>Parzen</td>
-      <td>Triangle kerel, h=0.35</td>
+      <td>Parzen, Triangle kerel</td>
+      <td>h=0.35</td>
       <td>0.04</td>
     </tr>
     <tr>
-      <td>Parzen</td>
-      <td>Quartic kerel, h=0.35</td>
+      <td>Parzen, Quartic kerel</td>
+      <td>h=0.35</td>
       <td>0.04</td>
     </tr>
     <tr>
-      <td>Parzen</td>
-      <td>Epanechnikov kerel, h=0.35</td>
+      <td>Parzen, Epanechnikov kerel</td>
+      <td>h=0.35</td>
       <td>0.04</td>
     </tr>
     <tr>
-      <td>Parzen</td>
-      <td>Gauss kerel, h=0.1</td>
+      <td>Parzen, Gauss kerel</td>
+      <td>h=0.1</td>
       <td>0.04</td>
     </tr>
   </tbody>
-</table>
+   </table></h3>
+</center>
