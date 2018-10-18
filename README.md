@@ -12,37 +12,37 @@
       <th>Точность</th>
     </tr>
     <tr>
-      <td>[KWNN](#KWNN)</td>
+      <td><a href="#KWNN">KWNN</a></td>
       <td>k=19, q=0.2</td>
       <td>0.0267</td>
     </tr>
     <tr>
-      <td>[KNN](#KNN)</td>
+      <td><a href="#KNN">KNN</a></td>
       <td>k=6</td>
       <td>0.0333</td>
     </tr>
     <tr>
-      <td>[Parzen, Rectangel kerel](#ParzenR)</td>
+      <td><a href="#ParzenR">Parzen, Rectangle kerel</a></td>
       <td>h=0.35</td>
       <td>0.04</td>
     </tr>
     <tr>
-      <td>[Parzen, Triangle kerel](#ParzenT)</td>
+      <td><a href="#ParzenT">Parzen, Triangle kerel</a></td>
       <td>h=0.35</td>
       <td>0.04</td>
     </tr>
     <tr>
-      <td>[Parzen, Quartic kerel](#ParzenQ)</td>
+      <td><a href="#ParzenQ">Parzen, Quartic kerel</a></td>
       <td>h=0.35</td>
       <td>0.04</td>
     </tr>
     <tr>
-      <td>[Parzen, Epanechnikov kerel](#ParzenE)</td>
+      <td><a href="#ParzenE">Parzen, Epanechnikov kerel</a></td>
       <td>h=0.35</td>
       <td>0.04</td>
     </tr>
     <tr>
-      <td>[Parzen, Gauss kerel](#ParzenG)</td>
+      <td><a href="#ParzenG">Parzen, Gauss kerel</a></td>
       <td>h=0.1</td>
       <td>0.04</td>
     </tr>
