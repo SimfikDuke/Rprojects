@@ -113,12 +113,49 @@
 - Для всех ядер, кроме гауссовского, есть вероятность того, что точка не будет классифицированна из-за того, что она не попадает в окно. 
 
 Следующая таблица содержит сводку по реализованным методам:  
-| **Метод**     | **Параметры**              | **Точность**  |  
-|:------------- |:--------------------------:| -------------:|  
-| KNN           | k=6                        |        0.0333 |  
-| KWNN          | k=19, w=0.2^i              |         0.0267|  
-| Parzen        | Rectangel kerel, h=0.35    |          0.04 |  
-| Parzen        | Triangle kerel, h=0.35     |          0.04 |  
-| Parzen        | Quartic kerel, h=0.35      |          0.04 |  
-| Parzen        | Epanechnikov kerel, h=0.35 |          0.04 |  
-| Parzen        | Gauss kerel, h=0.01        |          0.04 |  
+
+
+<table>
+  <tbody>
+    <tr>
+      <th>Метод</th>
+      <th>Параметры</th>
+      <th>Точность</th>
+    </tr>
+    <tr>
+      <td>KNN</td>
+      <td>k=6</td>
+      <td>0.0333</td>
+    </tr>
+    <tr>
+      <td>KWNN</td>
+      <td>k=19, w=0.2^i</td>
+      <td>0.0267</td>
+    </tr>
+    <tr>
+      <td>Parzen</td>
+      <td>Rectangel kerel, h=0.35</td>
+      <td>0.04</td>
+    </tr>
+    <tr>
+      <td>Parzen</td>
+      <td>Triangle kerel, h=0.35</td>
+      <td>0.04</td>
+    </tr>
+    <tr>
+      <td>Parzen</td>
+      <td>Quartic kerel, h=0.35</td>
+      <td>0.04</td>
+    </tr>
+    <tr>
+      <td>Parzen</td>
+      <td>Epanechnikov kerel, h=0.35</td>
+      <td>0.04</td>
+    </tr>
+    <tr>
+      <td>Parzen</td>
+      <td>Gauss kerel, h=0.1</td>
+      <td>0.04</td>
+    </tr>
+  </tbody>
+</table>
