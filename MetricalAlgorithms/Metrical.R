@@ -63,8 +63,13 @@ plotKWNN <- function(z1,z2,x=iris,k=6,w=0.5){
   points(z1, z2, pch = 21, col = colors[KWNN(x[,3:5],c(z1,z2),k,w)])
 }
 #Функция отрисовки объекта, классифицированного при помощи алгоритма parsen
-plotParsen <- function(z1,z2,x=iris,h=2,K=kE){
+plotParsen <- function(z1,z2,x=iris,h=0.35,K=kE){
   points(z1, z2, pch = 21, col = colors[parsen(x[,3:5],c(z1,z2),h,K)])
+}
+
+#Функция отрисовки объекта, классифицированного при помощи алгоритма потенциальных функций
+plotPotentials <- function(z1,z2,x=iris,g,K=kE,h=0.35){
+  points(z1, z2, pch = 21, col = colors[potentials(x[,3:5],c(z1,z2),g,K,h)])
 }
 
 #Функция возвращает случайный набор ирисов Фишера заданной длины
@@ -106,6 +111,15 @@ classMapParsen <- function(ir=iris,h=2,K=kE){
   for (i in seq(0,7,0.1)) {
     for (j in seq(0,2.5,0.1)){
       plotParsen(i,j,ir,h,K)
+    }
+  }
+}
+
+#Функция отрисовки карты классификации алгоритма потенциальных функций
+classMapPotentials <- function(ir=iris,g,h=0.35,K=kE){
+  for (i in seq(0,7,0.1)) {
+    for (j in seq(0,2.5,0.1)){
+      plotPotentials(i,j,ir,g,K,h)
     }
   }
 }
@@ -283,15 +297,35 @@ test_parsen_kernels <- function(){
     classMapParsen(iris, 0.1, kG)
   par(loo)
 }
+####################################################### 
+potentials <- function(x, z, g, K,h=0.35){
+  m <- dim(x)[1]
+  n <- dim(x)[2]-1
+  count_classes <- length(names(table(x[,n+1])))
+  classes <- rep(0,count_classes)
+  names(classes) <- names(table(x[,n+1]))
+  for(i in 1:m){
+    y <- x[i,n+1]
+    dist <- eDist(x[i,1:n],z)
+    w <- K(dist/h) * g[i]
+    classes[y] <- classes[y] + w
+  }
+  if(sum(classes) > 0) class <- names(which.max(classes))
+  else class <- "unknown"
+  return(class)
+}
+
+
+####################################################### 
 #listIrises <- read.table("/users/Duke/AnotherProjects/R/MetricalAlgorithms/iris_1")
 #plotIris(iris, "Карта классификации 1NN")
 #classMapFNN(iris)
-loo <- par(mfrow=c(1,2))
-plotIris(iris, "Карта классификации KWNN, k=6, q=0.5")
-classMapKWNN(iris)
-plotIris(iris,"Карта классификации парзеновского окна. Ядро Гаусса, h=0.1")
-classMapParsen(iris, 0.1, kG)
-par(loo)
+#loo <- par(mfrow=c(1,2))
+#plotIris(iris, "Карта классификации KWNN, k=6, q=0.5")
+#classMapKWNN(iris)
+#plotIris(iris,"Карта классификации парзеновского окна. Ядро Гаусса, h=0.1")
+#classMapParsen(iris, 0.1, kG)
+#par(loo)
 #plotIris(iris, "Карта классификации KNN, k=6")
 #classMapKNN(iris)
 #knn <- par(mfrow=c(1,2))
@@ -301,3 +335,4 @@ par(loo)
 #classMapKWNN(iris)
 #par(knn)
 #demonstration()
+####################################################### 
