@@ -315,7 +315,28 @@ potentials <- function(x, z, g, K,h=0.35){
   return(class)
 }
 
+set_error <- function(x,g,K,h){
+  err <- 0
+  m <- dim(x)[1]
+  n <- dim(x)[2]-1
+  for(i in 1:m){
+    if(potentials(x,x[i,n-1:n],g,K,h)!=x[i,n+1]) err <- err + 1
+  }
+  return(err)
+}
 
+find_gamma <- function(x,K=kE,h=0.35,delta=7){
+  m <- dim(x)[1]
+  n <- dim(x)[2]-1
+  g <- rep(0,m)
+  i <- 1
+  while(set_error(x,g,K,h)>delta){
+    if(potentials(x,x[i,n-1:n],g,K,h)!=x[i,n+1]) g[i] <- g[i] + 1
+    print(g)
+    i <- ((i+sample(1:9,1)[1])%%m)+1
+  }
+  return(g)
+}
 ####################################################### 
 #listIrises <- read.table("/users/Duke/AnotherProjects/R/MetricalAlgorithms/iris_1")
 #plotIris(iris, "Карта классификации 1NN")
@@ -336,3 +357,7 @@ potentials <- function(x, z, g, K,h=0.35){
 #par(knn)
 #demonstration()
 ####################################################### 
+listIrises <- read.table("/users/Duke/AnotherProjects/R/MetricalAlgorithms/iris_1")
+plotIris(listIrises, "Карта классификации 1NN")
+gamma <- find_gamma(listIrises[,3:5],kG,0.1)
+print(gamma)
