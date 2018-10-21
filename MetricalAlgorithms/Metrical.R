@@ -1,4 +1,6 @@
-colors <- c("setosa" = "red", "versicolor" = "green3", "virginica" = "blue", "unknown"="grey")
+#install.packages("plotrix")
+require("plotrix")
+colors <- c("setosa" = "red", "versicolor" = "green3", "virginica" = "blue", "unknown"="white")
 
 #Функция отрисовки набора
 plotIris <- function(ir=iris,label="Классификация"){
@@ -68,7 +70,7 @@ plotParsen <- function(z1,z2,x=iris,h=0.35,K=kE){
 }
 
 #Функция отрисовки объекта, классифицированного при помощи алгоритма потенциальных функций
-plotPotentials <- function(z1,z2,x=iris,g,K=kE,h=0.35){
+plotPotentials <- function(z1,z2,x=iris,g,K=kQ,h=c()){
   points(z1, z2, pch = 21, col = colors[potentials(x[,3:5],c(z1,z2),g,K,h)])
 }
 
@@ -116,7 +118,7 @@ classMapParsen <- function(ir=iris,h=2,K=kE){
 }
 
 #Функция отрисовки карты классификации алгоритма потенциальных функций
-classMapPotentials <- function(ir=iris,g,h=0.35,K=kE){
+classMapPotentials <- function(ir=iris,g,h=c(),K=kQ){
   for (i in seq(0,7,0.1)) {
     for (j in seq(0,2.5,0.1)){
       plotPotentials(i,j,ir,g,K,h)
@@ -268,46 +270,47 @@ demonstration <- function(){
 # Оценка LOO и карты классификации для различных ядер
 test_parsen_kernels <- function(){
   loo <- par(mfrow=c(1,2))
-    LOO_parsen(iris[,3:5],kR)
-    plotIris(iris,"Прямоугольное ядро h=0.35")
-    classMapParsen(iris, 0.35, kR)
+  LOO_parsen(iris[,3:5],kR)
+  plotIris(iris,"Прямоугольное ядро h=0.35")
+  classMapParsen(iris, 0.35, kR)
   par(loo)
   
   loo <- par(mfrow=c(1,2))
-    LOO_parsen(iris[,3:5],kT)
-    plotIris(iris,"Треугольное ядро h=0.35")
-    classMapParsen(iris, 0.35, kT)
+  LOO_parsen(iris[,3:5],kT)
+  plotIris(iris,"Треугольное ядро h=0.35")
+  classMapParsen(iris, 0.35, kT)
   par(loo)
   
   loo <- par(mfrow=c(1,2))
-    LOO_parsen(iris[,3:5],kQ)
-    plotIris(iris,"Квартическое ядро ядро h=0.35")
-    classMapParsen(iris, 0.35, kQ)
+  LOO_parsen(iris[,3:5],kQ)
+  plotIris(iris,"Квартическое ядро ядро h=0.35")
+  classMapParsen(iris, 0.35, kQ)
   par(loo)
   
   loo <- par(mfrow=c(1,2))
-    LOO_parsen(iris[,3:5],kE)
-    plotIris(iris,"Ядро Епонечникова h=0.35")
-    classMapParsen(iris, 0.35, kE)
+  LOO_parsen(iris[,3:5],kE)
+  plotIris(iris,"Ядро Епонечникова h=0.35")
+  classMapParsen(iris, 0.35, kE)
   par(loo)
   
   loo <- par(mfrow=c(1,2))
-    LOO_parsen(iris[,3:5],kG)
-    plotIris(iris,"Ядро Гаусса h=0.1")
-    classMapParsen(iris, 0.1, kG)
+  LOO_parsen(iris[,3:5],kG)
+  plotIris(iris,"Ядро Гаусса h=0.1")
+  classMapParsen(iris, 0.1, kG)
   par(loo)
 }
 ####################################################### 
-potentials <- function(x, z, g, K,h=0.35){
+potentials <- function(x, z, g, K, h=c()){
   m <- dim(x)[1]
   n <- dim(x)[2]-1
+  if (sum(h) == 0) h <- c(rep(1, m/3), rep(0.25, (m-m/3)))
   count_classes <- length(names(table(x[,n+1])))
   classes <- rep(0,count_classes)
   names(classes) <- names(table(x[,n+1]))
   for(i in 1:m){
     y <- x[i,n+1]
     dist <- eDist(x[i,1:n],z)
-    w <- K(dist/h) * g[i]
+    w <- K(dist/h[i]) * g[i]
     classes[y] <- classes[y] + w
   }
   if(sum(classes) > 0) class <- names(which.max(classes))
@@ -320,18 +323,24 @@ set_error <- function(x,g,K,h){
   m <- dim(x)[1]
   n <- dim(x)[2]-1
   for(i in 1:m){
-    if(potentials(x,x[i,n-1:n],g,K,h)!=x[i,n+1]) err <- err + 1
+    class1 <- potentials(x,x[i,n-1:n],g,K,h)
+    class2 <- x[i,n+1]
+    if(class1!=class2) err <- err + 1
   }
+  print(err)
   return(err)
 }
 
-find_gamma <- function(x,K=kE,h=0.35,delta=7){
+find_gamma <- function(x,K=kE,h=c(),delta=10){
   m <- dim(x)[1]
   n <- dim(x)[2]-1
+  if (sum(h) == 0) h <- c(rep(1, m/3), rep(0.25, (m-m/3)))
   g <- rep(0,m)
   i <- 1
   while(set_error(x,g,K,h)>delta){
-    if(potentials(x,x[i,n-1:n],g,K,h)!=x[i,n+1]) g[i] <- g[i] + 1
+    class1 <- potentials(x,x[i,n-1:n],g,K,h)
+    class2 <- x[i,n+1]
+    if(class1 != class2) g[i] <- g[i] + 1
     print(g)
     i <- ((i+sample(1:9,1)[1])%%m)+1
   }
@@ -357,7 +366,31 @@ find_gamma <- function(x,K=kE,h=0.35,delta=7){
 #par(knn)
 #demonstration()
 ####################################################### 
-listIrises <- read.table("/users/Duke/AnotherProjects/R/MetricalAlgorithms/iris_1")
-plotIris(listIrises, "Карта классификации 1NN")
-gamma <- find_gamma(listIrises[,3:5],kG,0.1)
-print(gamma)
+demo_potentials <- function(){
+  plt <- par(mfrow=c(1,2))
+  listIrises <- iris#rbind(iris[6:10,],iris[61:65,],iris[146:150,])#read.table("E:/R/MetricalAlgorithms/iris_1")
+  plotIris(listIrises,"Распределение потенциалов, Гауссовское ядро")
+  m <- dim(listIrises)[1]
+  h <- c(rep(1, m/3), rep(0.25, (m-m/3)))
+  kernel = kE
+  print(h)
+  #gamma <- find_gamma(listIrises[,3:5],kernel,h,20)
+  gamma <- c(2, 1, 0, 2, 0, 0, 1, 1, 1, 0, 2, 0, 0, 0, 0, 2, 0, 1, 0, 1, 3, 1, 0, 2, 1, 1, 0, 0, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 1, 0, 1, 0, 0, 2, 1,
+  1, 0, 2, 0, 0, 0, 2, 2, 0, 2, 0, 0, 2, 1, 1, 1, 2, 0, 1, 1, 1, 0, 0, 1, 2, 2, 0, 0, 2, 0, 4, 0, 3, 0, 0, 1, 0, 0, 2, 0, 2, 1, 2, 0, 0, 2,
+  0, 2, 1, 2, 2, 1, 0, 0, 1, 1, 2, 0, 1, 2, 2, 2, 0, 0, 1, 0, 0, 2, 1, 1, 3, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 2, 1, 1, 1, 0, 0, 0, 0, 2,
+  2, 0, 1, 0, 0, 1, 1, 0, 0, 2, 2, 0)
+  #gamma <- c(5, 3, 3, 6, 4, 3, 5, 6, 2, 4, 1, 2, 5, 4, 0)
+  for(i in 1:m){
+    opaq <- gamma/max(gamma)
+    if(gamma[i]>0){ 
+      color = adjustcolor(colors[listIrises[i,5]], opaq[i] / 2)
+      draw.circle(listIrises[i,3], listIrises[i,4], h[i], 40, border = color, col = color)
+      }
+  }
+  print(gamma)
+  print(h)
+  plotIris(listIrises,"Карта классификации, Гауссовское ядро")
+  classMapPotentials(listIrises,gamma,h,kernel)
+  par(plt)
+}
+demo_potentials()
