@@ -70,7 +70,10 @@ plotParsen <- function(z1,z2,x=iris,h=0.35,K=kE){
 
 #Функция отрисовки объекта, классифицированного при помощи алгоритма потенциальных функций
 plotPotentials <- function(z1,z2,x=iris,g,K=kQ,h=c()){
-  points(z1, z2, pch = 21, col = colors[potentials(x[,3:5],c(z1,z2),g,K,h)])
+  col <- potentials(x[,3:5],c(z1,z2),g,K,h)
+  if (col != "unknown"){
+    points(z1, z2, pch = 21, col = colors[col])
+  }
 }
 
 #Функция возвращает случайный набор ирисов Фишера заданной длины
@@ -374,18 +377,31 @@ demo_potentials <- function(){
   h <- c(rep(1, m/3), rep(0.5, (m-m/3)))
   kernel = kE
   print(h)
-  gamma <- find_gamma(listIrises[,3:5],kernel,h,12)
+  gamma <- find_gamma(listIrises[,3:5],kernel,h,8)
   for(i in 1:m){
     opaq <- gamma/max(gamma)
     if(gamma[i]>0){ 
       color = adjustcolor(colors[listIrises[i,5]], opaq[i] / 2)
       draw.circle(listIrises[i,3], listIrises[i,4], h[i], 40, border = color, col = color)
+      points(listIrises[i,3],listIrises[i,4],col="yellow",pch=24)
+      points(listIrises[i,3],listIrises[i,4],col="yellow",pch=25)
+      points(listIrises[i,3],listIrises[i,4],col="black",bg=color,pch=21)
+    }
+    else {
+      if(listIrises[i,5] != potentials(listIrises[,3:5],listIrises[i,3:4],gamma,kernel,h)){
+        points(listIrises[i,3],listIrises[i,4],col="black",pch=22)
       }
+    }
   }
   print(gamma)
   print(h)
   plotIris(listIrises,"Карта классификации,\n ядро Епанечникова")
   classMapPotentials(listIrises,gamma,h,kernel)
+  for(i in 1:m){
+      if(listIrises[i,5] != potentials(listIrises[,3:5],listIrises[i,3:4],gamma,kernel,h)){
+        points(listIrises[i,3],listIrises[i,4],col="black",pch=22)
+      }
+    }
   par(plt)
 }
 demo_potentials()
