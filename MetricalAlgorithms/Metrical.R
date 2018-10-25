@@ -372,12 +372,12 @@ find_gamma <- function(x,K=kE,h=c(),delta=10){
 demo_potentials <- function(){
   plt <- par(mfrow=c(1,2))
   listIrises <- iris#rbind(iris[6:10,],iris[61:65,],iris[146:150,])#read.table("E:/R/MetricalAlgorithms/iris_1")
-  plotIris(listIrises,"Распределение потенциалов,\n ядро Епанечникова")
+  plotIris(listIrises,"Распределение потенциалов,\n ядро Гаусса")
   m <- dim(listIrises)[1]
   h <- c(rep(1, m/3), rep(0.5, (m-m/3)))
-  kernel = kE
+  kernel = kG
   print(h)
-  gamma <- find_gamma(listIrises[,3:5],kernel,h,8)
+  gamma <- find_gamma(listIrises[,3:5],kernel,h,7)
   for(i in 1:m){
     opaq <- gamma/max(gamma)
     if(gamma[i]>0){ 
@@ -395,7 +395,7 @@ demo_potentials <- function(){
   }
   print(gamma)
   print(h)
-  plotIris(listIrises,"Карта классификации,\n ядро Епанечникова")
+  plotIris(listIrises,"Карта классификации,\n ядро Гаусса")
   classMapPotentials(listIrises,gamma,h,kernel)
   for(i in 1:m){
       if(listIrises[i,5] != potentials(listIrises[,3:5],listIrises[i,3:4],gamma,kernel,h)){
