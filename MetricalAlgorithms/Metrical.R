@@ -5,7 +5,7 @@ colors <- c("setosa" = "red", "versicolor" = "green3", "virginica" = "blue", "un
 #Функция отрисовки набора
 plotIris <- function(ir=iris,label="Классификация"){
   plot(ir[, 3:4], pch = 21, bg = colors[ir$Species], col = colors[ir$Species],
-       xlab="Длина лепестка",ylab="Ширина лепестка",main=label)
+       xlab="Длина лепестка",ylab="Ширина лепестка",main=label,asp = 1)
 }
 
 #Функция метрики
@@ -58,7 +58,6 @@ plotFNN <- function(z1,z2,x=iris){
 plotKNN <- function(z1,z2,x=iris,k=6){
   points(z1, z2, pch = 21, col = colors[KNN(x[,3:5],c(z1,z2),k)])
 }
-
 
 #Функция отрисовки объекта, классифицированного при помощи алгоритма KWNN
 plotKWNN <- function(z1,z2,x=iris,k=6,w=0.5){
@@ -323,9 +322,11 @@ set_error <- function(x,g,K,h){
   m <- dim(x)[1]
   n <- dim(x)[2]-1
   for(i in 1:m){
-    class1 <- potentials(x,x[i,n-1:n],g,K,h)
+    class1 <- potentials(x,x[i,1:n],g,K,h)
     class2 <- x[i,n+1]
-    if(class1!=class2) err <- err + 1
+    if(class1!=class2){
+      err <- err + 1
+    } 
   }
   print(err)
   return(err)
@@ -338,11 +339,10 @@ find_gamma <- function(x,K=kE,h=c(),delta=10){
   g <- rep(0,m)
   i <- 1
   while(set_error(x,g,K,h)>delta){
-    class1 <- potentials(x,x[i,n-1:n],g,K,h)
+    class1 <- potentials(x,x[i,1:n],g,K,h)
     class2 <- x[i,n+1]
     if(class1 != class2) g[i] <- g[i] + 1
-    print(g)
-    i <- ((i+sample(1:9,1)[1])%%m)+1
+    i <- ((40+sample(1:110,1)[1])%%m)+1
   }
   return(g)
 }
@@ -369,17 +369,12 @@ find_gamma <- function(x,K=kE,h=c(),delta=10){
 demo_potentials <- function(){
   plt <- par(mfrow=c(1,2))
   listIrises <- iris#rbind(iris[6:10,],iris[61:65,],iris[146:150,])#read.table("E:/R/MetricalAlgorithms/iris_1")
-  plotIris(listIrises,"Распределение потенциалов, Гауссовское ядро")
+  plotIris(listIrises,"Распределение потенциалов,\n ядро Епанечникова")
   m <- dim(listIrises)[1]
-  h <- c(rep(1, m/3), rep(0.25, (m-m/3)))
+  h <- c(rep(1, m/3), rep(0.5, (m-m/3)))
   kernel = kE
   print(h)
-  #gamma <- find_gamma(listIrises[,3:5],kernel,h,20)
-  gamma <- c(2, 1, 0, 2, 0, 0, 1, 1, 1, 0, 2, 0, 0, 0, 0, 2, 0, 1, 0, 1, 3, 1, 0, 2, 1, 1, 0, 0, 0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 1, 0, 1, 0, 0, 2, 1,
-  1, 0, 2, 0, 0, 0, 2, 2, 0, 2, 0, 0, 2, 1, 1, 1, 2, 0, 1, 1, 1, 0, 0, 1, 2, 2, 0, 0, 2, 0, 4, 0, 3, 0, 0, 1, 0, 0, 2, 0, 2, 1, 2, 0, 0, 2,
-  0, 2, 1, 2, 2, 1, 0, 0, 1, 1, 2, 0, 1, 2, 2, 2, 0, 0, 1, 0, 0, 2, 1, 1, 3, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 2, 1, 1, 1, 0, 0, 0, 0, 2,
-  2, 0, 1, 0, 0, 1, 1, 0, 0, 2, 2, 0)
-  #gamma <- c(5, 3, 3, 6, 4, 3, 5, 6, 2, 4, 1, 2, 5, 4, 0)
+  gamma <- find_gamma(listIrises[,3:5],kernel,h,12)
   for(i in 1:m){
     opaq <- gamma/max(gamma)
     if(gamma[i]>0){ 
@@ -389,7 +384,7 @@ demo_potentials <- function(){
   }
   print(gamma)
   print(h)
-  plotIris(listIrises,"Карта классификации, Гауссовское ядро")
+  plotIris(listIrises,"Карта классификации,\n ядро Епанечникова")
   classMapPotentials(listIrises,gamma,h,kernel)
   par(plt)
 }
