@@ -206,9 +206,18 @@
 
 В программной реализации использован метрический классификатор kwNN.  
 Сам алгоритм STOLP формулируется следующим образом:  
-- Отбросить выбросы (объекты ![x](http://www.machinelearning.ru/mimetex/?X^l) с W>δ)
-Сформировать начальное приближение ![o](http://www.machinelearning.ru/mimetex/?\Omega) — из объектов выборки ![x](http://www.machinelearning.ru/mimetex/?X^l) выбрать по одному объекту каждого класса, обладающему среди объектов данного класса максимальной величиной риска[1] либо минимальной величиной риска[1]
-Наращивание множества эталонов (пока число объектов выборки ![x](http://www.machinelearning.ru/mimetex/?X^l), распознаваемых неправильно, не станет меньше l_0):
-Классифицировать объекты ![x](http://www.machinelearning.ru/mimetex/?X^l), используя в качестве обучающей выборки ![o](http://www.machinelearning.ru/mimetex/?\Omega)
-Пересчитать величины риска для всех объектов ![xx](http://www.machinelearning.ru/mimetex/?X^l%20\setminus%20\Omega) с учетом изменения обучающей выборки
-Среди объектов каждого класса, распознанных неправильно, выбрать объекты с максимальной величиной риска и добавить их к ![o](http://www.machinelearning.ru/mimetex/?\Omega)
+- Отбросить выбросы (объекты ![x](http://www.machinelearning.ru/mimetex/?X^l) с W>δ)  
+- Сформировать начальное приближение ![o](http://www.machinelearning.ru/mimetex/?\Omega) — из объектов выборки ![x](http://www.machinelearning.ru/mimetex/?X^l) выбрать по одному объекту каждого класса, обладающему среди объектов данного класса максимальной величиной риска либо минимальной величиной риска  
+- Наращивание множества эталонов (пока число объектов выборки ![x](http://www.machinelearning.ru/mimetex/?X^l), распознаваемых неправильно, не станет меньше ![l_0](http://www.machinelearning.ru/mimetex/?l_0)):  
+   * Классифицировать объекты ![x](http://www.machinelearning.ru/mimetex/?X^l), используя в качестве обучающей выборки ![o](http://www.machinelearning.ru/mimetex/?\Omega)  
+   * Пересчитать величины риска для всех объектов ![xx](http://www.machinelearning.ru/mimetex/?X^l%20\setminus%20\Omega) с учетом изменения обучающей выборки  
+   * Среди объектов каждого класса, распознанных неправильно, выбрать объекты с максимальной величиной риска и добавить их к ![o](http://www.machinelearning.ru/mimetex/?\Omega)
+
+Первый проход:
+!(s1)[https://github.com/SimfikDuke/Rprojects/blob/master/img/stolp_s1.png]
+
+Второй проход:
+!(s2)[https://github.com/SimfikDuke/Rprojects/blob/master/img/stolp_s2.png]
+
+Одинадцатый проход:
+!(s11)[https://github.com/SimfikDuke/Rprojects/blob/master/img/stolp_s11.png]
