@@ -214,7 +214,7 @@
    * Среди объектов каждого класса, распознанных неправильно, выбрать объекты с максимальной величиной риска и добавить их к ![o](http://www.machinelearning.ru/mimetex/?\Omega)
 
 Первый проход:
-!(s1](https://github.com/SimfikDuke/Rprojects/blob/master/img/stolp_s1.png)
+![s1](https://github.com/SimfikDuke/Rprojects/blob/master/img/stolp_s1.png)
 
 Второй проход:
 ![s2](https://github.com/SimfikDuke/Rprojects/blob/master/img/stolp_s2.png)
