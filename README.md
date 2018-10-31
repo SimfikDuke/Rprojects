@@ -226,3 +226,22 @@
 
 Одинадцатый проход:  
 ![s11](https://github.com/SimfikDuke/Rprojects/blob/master/img/stolp_s11.png)
+
+Карты классификации:  
+![s11](https://github.com/SimfikDuke/Rprojects/blob/master/img/stolp_s11.png)  
+
+В следующей таблице видна скорость работы (на примере составления карты классификации) до и после отбора объектов с помощью алгоритма STOLP:  
+<table>
+  <tr>
+  <td></td>
+  <td><b>Время</b></td>
+  </tr>
+  <tr>
+  <td>All irises</td>
+  <td>8.74 mins</td>
+  </tr>
+  <tr>
+  <td>STOLP irises</td>
+  <td>20.75 secs</td>
+  </tr>
+</table>
