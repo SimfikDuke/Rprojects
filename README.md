@@ -57,6 +57,11 @@
       <td>h=(1х50, 0.5х100)</td>
       <td><b>Переменная</b></td>
     </tr>
+    <tr>
+      <td><a href="#stolp">STOLP</a></td>
+      <td></td>
+      <td><b></b></td>
+    </tr>
   </tbody>
    </table>
    
@@ -213,11 +218,11 @@
    * Пересчитать величины риска для всех объектов ![xx](http://www.machinelearning.ru/mimetex/?X^l%20\setminus%20\Omega) с учетом изменения обучающей выборки  
    * Среди объектов каждого класса, распознанных неправильно, выбрать объекты с максимальной величиной риска и добавить их к ![o](http://www.machinelearning.ru/mimetex/?\Omega)
 
-Первый проход:
+Первый проход:  
 ![s1](https://github.com/SimfikDuke/Rprojects/blob/master/img/stolp_s1.png)
 
-Второй проход:
+Второй проход:  
 ![s2](https://github.com/SimfikDuke/Rprojects/blob/master/img/stolp_s2.png)
 
-Одинадцатый проход:
+Одинадцатый проход:  
 ![s11](https://github.com/SimfikDuke/Rprojects/blob/master/img/stolp_s11.png)
