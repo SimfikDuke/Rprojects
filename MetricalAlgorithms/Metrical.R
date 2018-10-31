@@ -500,7 +500,7 @@ stolp <- function(x,sigma=-0.1,l=0){
   }
 }
 
-stolp2 <- function(x,sigma=-0.1,l=0){
+stolp2 <- function(x,sigma=-0.1,l=3){
   margins <- marginKWNN(x)
   cols <- dim(x)[2]
   invalids <- c()
@@ -557,14 +557,16 @@ stolp2 <- function(x,sigma=-0.1,l=0){
     queue <- queue[-1,]
   }
 }
-  
+
 inp <- iris[,3:5]
 st <- stolp2(inp)
-
-
-
-
-
-
-
-
+p <- par(mfrow=c(1,2))
+a1 <- Sys.time()
+plotIris(iris,label = "All irises")
+classMapKWNN(iris)
+a2 <- Sys.time()
+sto <- cbind(st[1:2],st)
+plotIris(sto,label = "STOLP irises")
+classMapKWNN(sto)
+a3 <- Sys.time()
+par(p)
