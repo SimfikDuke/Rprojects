@@ -2,18 +2,18 @@
 require("plotrix")
 colors <- c("setosa" = "red", "versicolor" = "green3", "virginica" = "blue", "unknown"="white")
 
-#Р¤СѓРЅРєС†РёСЏ РѕС‚СЂРёСЃРѕРІРєРё РЅР°Р±РѕСЂР°
-plotIris <- function(ir=iris,label="РљР»Р°СЃСЃРёС„РёРєР°С†РёСЏ"){
+#Функция отрисовки набора
+plotIris <- function(ir=iris,label="Классификация"){
   plot(ir[, 3:4], pch = 21, bg = colors[ir$Species], col = colors[ir$Species],
-       xlab="Р”Р»РёРЅР° Р»РµРїРµСЃС‚РєР°",ylab="РЁРёСЂРёРЅР° Р»РµРїРµСЃС‚РєР°",main=label,asp = 1)
+       xlab="Длина лепестка",ylab="Ширина лепестка",main=label,asp = 1)
 }
 
-#Р¤СѓРЅРєС†РёСЏ РјРµС‚СЂРёРєРё
+#Функция метрики
 eDist <- function(u, v) {
   sqrt(sum((u - v)^2))
 }
 
-#Р¤СѓРЅРєС†РёСЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ РєР»Р°СЃСЃР° РїСЂРё РїРѕРјРѕС‰Рё Р°Р»РіРѕСЂРёС‚РјР° 1NN
+#Функция определения класса при помощи алгоритма 1NN
 FNN <- function(x,z){
   m <- dim(x)[1]
   n <- dim(x)[2] - 1
@@ -24,7 +24,7 @@ FNN <- function(x,z){
   return (x[order(dist[,2])[1],n+1]);
 }
 
-#Р¤СѓРЅРєС†РёСЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ РєР»Р°СЃСЃР° РїСЂРё РїРѕРјРѕС‰Рё Р°Р»РіРѕСЂРёС‚РјР° KNN
+#Функция определения класса при помощи алгоритма KNN
 KNN <- function(x,z,k=6){
   m <- dim(x)[1]
   n <- dim(x)[2] - 1
@@ -35,7 +35,7 @@ KNN <- function(x,z,k=6){
   return(class)
 }
 
-#Р¤СѓРЅРєС†РёСЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ РєР»Р°СЃСЃР° РїСЂРё РїРѕРјРѕС‰Рё Р°Р»РіРѕСЂРёС‚РјР° KWNN
+#Функция определения класса при помощи алгоритма KWNN
 KWNN <- function(x,z,k=6,w=0.5){
   m <- dim(x)[1]
   n <- dim(x)[2] - 1
@@ -49,26 +49,26 @@ KWNN <- function(x,z,k=6,w=0.5){
   return(class)
 }
 
-#Р¤СѓРЅРєС†РёСЏ РѕС‚СЂРёСЃРѕРІРєРё РѕР±СЉРµРєС‚Р°, РєР»Р°СЃСЃРёС„РёС†РёСЂРѕРІР°РЅРЅРѕРіРѕ РїСЂРё РїРѕРјРѕС‰Рё Р°Р»РіРѕСЂРёС‚РјР° 1NN
+#Функция отрисовки объекта, классифицированного при помощи алгоритма 1NN
 plotFNN <- function(z1,z2,x=iris){
   points(z1, z2, pch = 21, col = colors[FNN(x[,3:5],c(z1,z2))])
 }
 
-#Р¤СѓРЅРєС†РёСЏ РѕС‚СЂРёСЃРѕРІРєРё РѕР±СЉРµРєС‚Р°, РєР»Р°СЃСЃРёС„РёС†РёСЂРѕРІР°РЅРЅРѕРіРѕ РїСЂРё РїРѕРјРѕС‰Рё Р°Р»РіРѕСЂРёС‚РјР° KNN
+#Функция отрисовки объекта, классифицированного при помощи алгоритма KNN
 plotKNN <- function(z1,z2,x=iris,k=6){
   points(z1, z2, pch = 21, col = colors[KNN(x[,3:5],c(z1,z2),k)])
 }
 
-#Р¤СѓРЅРєС†РёСЏ РѕС‚СЂРёСЃРѕРІРєРё РѕР±СЉРµРєС‚Р°, РєР»Р°СЃСЃРёС„РёС†РёСЂРѕРІР°РЅРЅРѕРіРѕ РїСЂРё РїРѕРјРѕС‰Рё Р°Р»РіРѕСЂРёС‚РјР° KWNN
+#Функция отрисовки объекта, классифицированного при помощи алгоритма KWNN
 plotKWNN <- function(z1,z2,x=iris,k=6,w=0.5){
   points(z1, z2, pch = 21, col = colors[KWNN(x[,3:5],c(z1,z2),k,w)])
 }
-#Р¤СѓРЅРєС†РёСЏ РѕС‚СЂРёСЃРѕРІРєРё РѕР±СЉРµРєС‚Р°, РєР»Р°СЃСЃРёС„РёС†РёСЂРѕРІР°РЅРЅРѕРіРѕ РїСЂРё РїРѕРјРѕС‰Рё Р°Р»РіРѕСЂРёС‚РјР° parsen
+#Функция отрисовки объекта, классифицированного при помощи алгоритма parsen
 plotParsen <- function(z1,z2,x=iris,h=0.35,K=kE){
   points(z1, z2, pch = 21, col = colors[parsen(x[,3:5],c(z1,z2),h,K)])
 }
 
-#Р¤СѓРЅРєС†РёСЏ РѕС‚СЂРёСЃРѕРІРєРё РѕР±СЉРµРєС‚Р°, РєР»Р°СЃСЃРёС„РёС†РёСЂРѕРІР°РЅРЅРѕРіРѕ РїСЂРё РїРѕРјРѕС‰Рё Р°Р»РіРѕСЂРёС‚РјР° РїРѕС‚РµРЅС†РёР°Р»СЊРЅС‹С… С„СѓРЅРєС†РёР№
+#Функция отрисовки объекта, классифицированного при помощи алгоритма потенциальных функций
 plotPotentials <- function(z1,z2,x=iris,g,K=kQ,h=c()){
   col <- potentials(x[,3:5],c(z1,z2),g,K,h)
   if (col != "unknown"){
@@ -76,14 +76,14 @@ plotPotentials <- function(z1,z2,x=iris,g,K=kQ,h=c()){
   }
 }
 
-#Р¤СѓРЅРєС†РёСЏ РІРѕР·РІСЂР°С‰Р°РµС‚ СЃР»СѓС‡Р°Р№РЅС‹Р№ РЅР°Р±РѕСЂ РёСЂРёСЃРѕРІ Р¤РёС€РµСЂР° Р·Р°РґР°РЅРЅРѕР№ РґР»РёРЅС‹
+#Функция возвращает случайный набор ирисов Фишера заданной длины
 sampleIris <- function(count=15){
   t <- intersect(iris[,3:5],iris[3:5])
   listIndex <- sample(rownames(t),count)
   return(iris[listIndex,])
 }
 
-#Р¤СѓРЅРєС†РёСЏ РѕС‚СЂРёСЃРѕРІРєРё РєР°СЂС‚С‹ РєР»Р°СЃСЃРёС„РёРєР°С†РёРё Р°Р»РіРѕСЂРёС‚РјР° 1NN
+#Функция отрисовки карты классификации алгоритма 1NN
 classMapFNN <- function(ir=iris){
   for (i in seq(0,7,0.1)) {
     for (j in seq(0,2.5,0.1)){
@@ -92,7 +92,7 @@ classMapFNN <- function(ir=iris){
   }
 }
 
-#Р¤СѓРЅРєС†РёСЏ РѕС‚СЂРёСЃРѕРІРєРё РєР°СЂС‚С‹ РєР»Р°СЃСЃРёС„РёРєР°С†РёРё Р°Р»РіРѕСЂРёС‚РјР° KNN
+#Функция отрисовки карты классификации алгоритма KNN
 classMapKNN <- function(ir=iris,k=6){
   for (i in seq(0,7,0.1)) {
     for (j in seq(0,2.5,0.1)){
@@ -101,7 +101,7 @@ classMapKNN <- function(ir=iris,k=6){
   }
 }
 
-#Р¤СѓРЅРєС†РёСЏ РѕС‚СЂРёСЃРѕРІРєРё РєР°СЂС‚С‹ РєР»Р°СЃСЃРёС„РёРєР°С†РёРё Р°Р»РіРѕСЂРёС‚РјР° KWNN
+#Функция отрисовки карты классификации алгоритма KWNN
 classMapKWNN <- function(ir=iris,k=6,w=0.5){
   for (i in seq(0,7,0.1)) {
     for (j in seq(0,2.5,0.1)){
@@ -110,7 +110,7 @@ classMapKWNN <- function(ir=iris,k=6,w=0.5){
   }
 }
 
-#Р¤СѓРЅРєС†РёСЏ РѕС‚СЂРёСЃРѕРІРєРё РєР°СЂС‚С‹ РєР»Р°СЃСЃРёС„РёРєР°С†РёРё Р°Р»РіРѕСЂРёС‚РјР° parsen
+#Функция отрисовки карты классификации алгоритма parsen
 classMapParsen <- function(ir=iris,h=2,K=kE){
   for (i in seq(0,7,0.1)) {
     for (j in seq(0,2.5,0.1)){
@@ -119,7 +119,7 @@ classMapParsen <- function(ir=iris,h=2,K=kE){
   }
 }
 
-#Р¤СѓРЅРєС†РёСЏ РѕС‚СЂРёСЃРѕРІРєРё РєР°СЂС‚С‹ РєР»Р°СЃСЃРёС„РёРєР°С†РёРё Р°Р»РіРѕСЂРёС‚РјР° РїРѕС‚РµРЅС†РёР°Р»СЊРЅС‹С… С„СѓРЅРєС†РёР№
+#Функция отрисовки карты классификации алгоритма потенциальных функций
 classMapPotentials <- function(ir=iris,g,h=c(),K=kQ){
   for (i in seq(0,7,0.1)) {
     for (j in seq(0,2.5,0.1)){
@@ -127,7 +127,7 @@ classMapPotentials <- function(ir=iris,g,h=c(),K=kQ){
     }
   }
 }
-#Р¤СѓРЅРєС†РёСЏ РѕС‚СЂРёСЃРѕРІРєР° РіСЂР°С„РёРєР° РѕС†РµРЅРєРё С‚РѕС‡РЅРѕСЃС‚Рё Р°Р»РіРѕСЂРёС‚РјР° KNN РїСЂРё РїРѕРјРѕС‰Рё СЃРєРѕР»СЊР·СЏС‰РµРіРѕ РєРѕРЅС‚СЂРѕР»СЏ
+#Функция отрисовка графика оценки точности алгоритма KNN при помощи скользящего контроля
 LOOKNN <- function(x){
   len <- dim(x)[1]
   n <- dim(x)[2]-1
@@ -152,11 +152,11 @@ LOOKNN <- function(x){
   print(which.min(mark))
   min_point <- c(which.min(mark), round(min(mark),4))
   text <- paste("k=",min_point[1],"\nLOO=",min_point[2],sep="")
-  plot(mark,type = "l",main = "LOO(k) Р°Р»РіРѕСЂРёС‚РјР° KNN",xlab = "k", ylab="РѕС†РµРЅРєР°")
+  plot(mark,type = "l",main = "LOO(k) алгоритма KNN",xlab = "k", ylab="оценка")
   points(min_point[1], min_point[2]+0.01, pch=19, col="black", bg="black")
   text(min_point[1]+5,min_point[2]+0.1,labels=text)
 }
-#Р¤СѓРЅРєС†РёСЏ РѕС‚СЂРёСЃРѕРІРєР° РіСЂР°С„РёРєР° РѕС†РµРЅРєРё С‚РѕС‡РЅРѕСЃС‚Рё Р°Р»РіРѕСЂРёС‚РјР° KWNN РїСЂРё РїРѕРјРѕС‰Рё СЃРєРѕР»СЊР·СЏС‰РµРіРѕ РєРѕРЅС‚СЂРѕР»СЏ
+#Функция отрисовка графика оценки точности алгоритма KWNN при помощи скользящего контроля
 LOOKWNN <- function(x, k=6){
   m <- dim(x)[1]
   n <- dim(x)[2]-1
@@ -185,12 +185,12 @@ LOOKWNN <- function(x, k=6){
   text <- paste("k=",k," q=",min_point[1],"\nLOO=",min_point[2],sep="")
   print(mark)
   print(which.min(mark))
-  plot(q,mark,type = "l",main = "LOO(k,q) Р°Р»РіРѕСЂРёС‚РјР° KWNN",xlab = "q", ylab="РѕС†РµРЅРєР°")
+  plot(q,mark,type = "l",main = "LOO(k,q) алгоритма KWNN",xlab = "q", ylab="оценка")
   points(min_point[1], min_point[2], pch=19, col="black", bg="black")
   text(min_point[1]+0.06,min_point[2]+0.0026,labels=text)
 }
 
-#Р¤СѓРЅРєС†РёСЏ РІРѕР·РІСЂР°С‰Р°РµС‚ РѕС‚СЃС‚СѓРїС‹ РІС‹Р±РѕСЂРєРё, РёСЃРїРѕР»СЊР·СѓСЏ Р°Р»РіРѕСЂРёС‚Рј KWNN
+#Функция возвращает отступы выборки, используя алгоритм KWNN
 marginKWNN <- function(x,k=6,w=0.5){
   m <- dim(x)[1]
   n <- dim(x)[2]-1
@@ -210,14 +210,14 @@ marginKWNN <- function(x,k=6,w=0.5){
   return(margin)
 }
 ####################################################### 
-# Р¤СѓРЅРєС†РёРё СЏРґРµСЂ
-kR <- function(z) 0.5 * (abs(z)<=1) # РџСЂСЏРјРѕСѓРіРѕР»СЊРЅРѕРµ
-kT <- function(z) (1 - abs(z))*(abs(z)<=1) #  РўСЂРµСѓРіРѕР»СЊРЅРѕРµ
-kQ <- function(z) (15/16)*(1 - z^2)^2 * (abs(z)<=1) # РљРІР°СЂС‚РёС‡РµСЃРєРѕРµ
-kE <- function(z) (3/4)*(1-z^2) * (abs(z)<=1) # Р•РїР°РЅРµС‡РЅРёРєРѕРІР°
-kG <- function(z) dnorm(z) # Р“Р°СѓСЃСЃРѕРІСЃРєРѕРµ
+# Функции ядер
+kR <- function(z) 0.5 * (abs(z)<=1) # Прямоугольное
+kT <- function(z) (1 - abs(z))*(abs(z)<=1) #  Треугольное
+kQ <- function(z) (15/16)*(1 - z^2)^2 * (abs(z)<=1) # Квартическое
+kE <- function(z) (3/4)*(1-z^2) * (abs(z)<=1) # Епанечникова
+kG <- function(z) dnorm(z) # Гауссовское
 
-#РџР°СЂР·РµРЅРѕРІСЃРєРѕРµ РѕРєРЅРѕ #h_opt: kR - 0.35; kT - 0.35, kQ - 0.35; kE - 0.35; kG - 0.1
+#Парзеновское окно #h_opt: kR - 0.35; kT - 0.35, kQ - 0.35; kE - 0.35; kG - 0.1
 parsen <- function(x, z, h, K){
   m <- dim(x)[1]
   n <- dim(x)[2]-1
@@ -234,7 +234,7 @@ parsen <- function(x, z, h, K){
   else class <- "unknown"
   return(class)
 }
-LOO_parsen <- function(x,K,labels="LOO РґР»СЏ РїР°СЂР·РµРЅРѕРІСЃРєРѕРіРѕ РѕРєРЅР°"){
+LOO_parsen <- function(x,K,labels="LOO для парзеновского окна"){
   m <- dim(x)[1]
   n <- dim(x)[2] - 1
   params <- seq(0.1,2,0.05)
@@ -247,7 +247,7 @@ LOO_parsen <- function(x,K,labels="LOO РґР»СЏ РїР°СЂР·РµРЅРѕРІСЃРєРѕРіРѕ РѕРєРЅР
       if (class1 != class2) mark[h] <- mark[h] + 1/m
     }
   }
-  plot(params, mark, type="l",xlab="РЁРёСЂРёРЅР° РѕРєРЅР°", ylab="РћС†РµРЅРєР°", main=labels)
+  plot(params, mark, type="l",xlab="Ширина окна", ylab="Оценка", main=labels)
   min_point <- c(params[which.min(mark)], round(min(mark),4))
   text <- paste(" h=",min_point[1],"\nLOO=",min_point[2],sep="")
   points(min_point[1], min_point[2], pch=19, col="blue", bg="black")
@@ -255,49 +255,49 @@ LOO_parsen <- function(x,K,labels="LOO РґР»СЏ РїР°СЂР·РµРЅРѕРІСЃРєРѕРіРѕ РѕРєРЅР
 }
 #######################################################
 
-#Р”РµРјРѕРЅСЃС‚СЂР°С†РёСЏ РїСЂРµРёРјСѓС‰РµСЃС‚РІР° Р°Р»РіРѕСЂРёС‚РјР° РІР·РІРµС€РµРЅРЅС‹С… СЃРѕСЃРµРґРµР№
+#Демонстрация преимущества алгоритма взвешенных соседей
 demonstration <- function(){
   demo_iris <- read.table("/users/Duke/AnotherProjects/R/MetricalAlgorithms/iris_demo")
   plotIris(demo_iris)
   demo_plot <- par(mfrow=c(1,2))
   demo_point <- c(1.8,0.4)
-  plotIris(demo_iris, "РљР»Р°СЃСЃРёС„РёРєР°С†РёСЏ С‚РѕС‡РєРё СЃ РїРѕРјРѕС‰СЊСЋ kNN, k=7")
+  plotIris(demo_iris, "Классификация точки с помощью kNN, k=7")
   plotKNN(demo_point[1],demo_point[2],demo_iris,k=7)
   text(demo_point[1]+0.58,demo_point[2], paste("class =",KNN(demo_iris[,3:5],demo_point,7)))
-  plotIris(demo_iris, "РљР»Р°СЃСЃРёС„РёРєР°С†РёСЏ С‚РѕС‡РєРё СЃ РїРѕРјРѕС‰СЊСЋ kwNN, k=7, q=0.5")
+  plotIris(demo_iris, "Классификация точки с помощью kwNN, k=7, q=0.5")
   plotKWNN(demo_point[1],demo_point[2],demo_iris,k=7,w=0.5)
   text(demo_point[1]+0.48,demo_point[2], paste("class =",KWNN(demo_iris[,3:5],demo_point,7)))
   par(demo_plot)
 }
-# РћС†РµРЅРєР° LOO Рё РєР°СЂС‚С‹ РєР»Р°СЃСЃРёС„РёРєР°С†РёРё РґР»СЏ СЂР°Р·Р»РёС‡РЅС‹С… СЏРґРµСЂ
+# Оценка LOO и карты классификации для различных ядер
 test_parsen_kernels <- function(){
   loo <- par(mfrow=c(1,2))
   LOO_parsen(iris[,3:5],kR)
-  plotIris(iris,"РџСЂСЏРјРѕСѓРіРѕР»СЊРЅРѕРµ СЏРґСЂРѕ h=0.35")
+  plotIris(iris,"Прямоугольное ядро h=0.35")
   classMapParsen(iris, 0.35, kR)
   par(loo)
   
   loo <- par(mfrow=c(1,2))
   LOO_parsen(iris[,3:5],kT)
-  plotIris(iris,"РўСЂРµСѓРіРѕР»СЊРЅРѕРµ СЏРґСЂРѕ h=0.35")
+  plotIris(iris,"Треугольное ядро h=0.35")
   classMapParsen(iris, 0.35, kT)
   par(loo)
   
   loo <- par(mfrow=c(1,2))
   LOO_parsen(iris[,3:5],kQ)
-  plotIris(iris,"РљРІР°СЂС‚РёС‡РµСЃРєРѕРµ СЏРґСЂРѕ СЏРґСЂРѕ h=0.35")
+  plotIris(iris,"Квартическое ядро ядро h=0.35")
   classMapParsen(iris, 0.35, kQ)
   par(loo)
   
   loo <- par(mfrow=c(1,2))
   LOO_parsen(iris[,3:5],kE)
-  plotIris(iris,"РЇРґСЂРѕ Р•РїРѕРЅРµС‡РЅРёРєРѕРІР° h=0.35")
+  plotIris(iris,"Ядро Епонечникова h=0.35")
   classMapParsen(iris, 0.35, kE)
   par(loo)
   
   loo <- par(mfrow=c(1,2))
   LOO_parsen(iris[,3:5],kG)
-  plotIris(iris,"РЇРґСЂРѕ Р“Р°СѓСЃСЃР° h=0.1")
+  plotIris(iris,"Ядро Гаусса h=0.1")
   classMapParsen(iris, 0.1, kG)
   par(loo)
 }
@@ -351,20 +351,20 @@ find_gamma <- function(x,K=kE,h=c(),delta=10){
 }
 ####################################################### 
 #listIrises <- read.table("/users/Duke/AnotherProjects/R/MetricalAlgorithms/iris_1")
-#plotIris(iris, "РљР°СЂС‚Р° РєР»Р°СЃСЃРёС„РёРєР°С†РёРё 1NN")
+#plotIris(iris, "Карта классификации 1NN")
 #classMapFNN(iris)
 #loo <- par(mfrow=c(1,2))
-#plotIris(iris, "РљР°СЂС‚Р° РєР»Р°СЃСЃРёС„РёРєР°С†РёРё KWNN, k=6, q=0.5")
+#plotIris(iris, "Карта классификации KWNN, k=6, q=0.5")
 #classMapKWNN(iris)
-#plotIris(iris,"РљР°СЂС‚Р° РєР»Р°СЃСЃРёС„РёРєР°С†РёРё РїР°СЂР·РµРЅРѕРІСЃРєРѕРіРѕ РѕРєРЅР°. РЇРґСЂРѕ Р“Р°СѓСЃСЃР°, h=0.1")
+#plotIris(iris,"Карта классификации парзеновского окна. Ядро Гаусса, h=0.1")
 #classMapParsen(iris, 0.1, kG)
 #par(loo)
-#plotIris(iris, "РљР°СЂС‚Р° РєР»Р°СЃСЃРёС„РёРєР°С†РёРё KNN, k=6")
+#plotIris(iris, "Карта классификации KNN, k=6")
 #classMapKNN(iris)
 #knn <- par(mfrow=c(1,2))
 #LOOKNN(iris[,3:5])
 #LOOKWNN(iris[,3:5],k=19)
-#plotIris(iris, "РљР°СЂС‚Р° РєР»Р°СЃСЃРёС„РёРєР°С†РёРё KWNN, k=6, q=0.5")
+#plotIris(iris, "Карта классификации KWNN, k=6, q=0.5")
 #classMapKWNN(iris)
 #par(knn)
 #demonstration()
@@ -372,7 +372,7 @@ find_gamma <- function(x,K=kE,h=c(),delta=10){
 demo_potentials <- function(){
   plt <- par(mfrow=c(1,2))
   listIrises <- iris#rbind(iris[6:10,],iris[61:65,],iris[146:150,])#read.table("E:/R/MetricalAlgorithms/iris_1")
-  plotIris(listIrises,"Р Р°СЃРїСЂРµРґРµР»РµРЅРёРµ РїРѕС‚РµРЅС†РёР°Р»РѕРІ,\n СЏРґСЂРѕ Р“Р°СѓСЃСЃР°")
+  plotIris(listIrises,"Распределение потенциалов,\n ядро Гаусса")
   m <- dim(listIrises)[1]
   h <- c(rep(1, m/3), rep(0.5, (m-m/3)))
   kernel = kG
@@ -395,7 +395,7 @@ demo_potentials <- function(){
   }
   print(gamma)
   print(h)
-  plotIris(listIrises,"РљР°СЂС‚Р° РєР»Р°СЃСЃРёС„РёРєР°С†РёРё,\n СЏРґСЂРѕ Р“Р°СѓСЃСЃР°")
+  plotIris(listIrises,"Карта классификации,\n ядро Гаусса")
   classMapPotentials(listIrises,gamma,h,kernel)
   for(i in 1:m){
     if(listIrises[i,5] != potentials(listIrises[,3:5],listIrises[i,3:4],gamma,kernel,h)){
@@ -405,8 +405,8 @@ demo_potentials <- function(){
   par(plt)
 }
 
-gradient <- function(x, y, col, n = 500) {
-  plot(x, y, type = "n", xlab = "", ylab = "")
+gradient <- function(x, y, col, n = 500, ...) {
+  plot(x, y, type = "n", ...)
   e <- par('usr')
   height <- diff(e[3:4]) / (n - 1)
   y_up <- seq(0, e[4], height)
@@ -426,9 +426,145 @@ gradient <- function(x, y, col, n = 500) {
             rep(e[3], length(y) + 1)), col = 'white', border = NA)
   box()
 }
+
+show_margins <- function(margins){
+  sorted_margins <- sort(margins)
+  print(sorted_margins)
+  margin_colors <- colorRampPalette(c("darkred", "red", "yellow", "green","darkgreen"))
+  #gradient(1:dim(inp)[1],sorted_margins,margin_colors,500,
+  #         ylab="Отступ", xlab="Ирисы Фишера", main="График отступов относительно алгоритма kwNN,\n k=6, q=0.5")
+  plot(1:dim(inp)[1],sorted_margins,type="o",ylab="Отступ", xlab="Ирисы Фишера", main="График отступов относительно алгоритма kwNN,\n k=6, q=0.5")
+  ap <- c(0,0.03,0,0)
+  for(i in 1:length(sorted_margins[sorted_margins < -0.1])){
+    points(i, sorted_margins[i],pch=21, bg="black")
+    t <- paste("Выброс, отступ=",sorted_margins[i],sep="")
+    text(i+18,sorted_margins[i]+ap[i],t,font=3)
+  }
+}
+
+stolp <- function(x,sigma=-0.1,l=0){
+  margins <- marginKWNN(x)
+  cols <- dim(x)[2]
+  invalids <- c()
+  omega <- matrix(NA,0,cols)
+  for(i in 1:dim(x)[1]){
+    if(margins[i]<sigma){
+      invalids <- c(invalids,i)
+    } 
+  }
+  x <- x[-invalids,]
+  margins <- margins[-invalids]
+  print(margins)
+  #разбить по классам с учетом отступов, а потом присоединять
+  classes <- unique(x[,3])
+  x_m <- cbind(x,margins)
+  for(i in classes){
+    ob <- x_m[x_m[3]==i,]
+    omega <- rbind(omega,ob[which.max(ob[,cols+1]),1:cols])
+  }
+  queue <- x[order(x_m[,4]),]
+  m <- dim(x)[1]
+  for(k in 1:(dim(x)[1]-dim(omega)[1])){
+    e <- 0
+    err <- matrix(NA,0,cols)
+    for (i in 1:m){
+      if(KWNN(omega,x[i,1:2]) != x[i,3]){
+        e <- e + 1
+        err <- rbind(err,x[i,])
+      }
+    }
+    
+    t <- paste("Шаг ",k,", ошибка = ",e, sep="")
+    #Отрисовка всех объектов
+    plot(x[1:2], pch = 21, col = colors[x$Species],
+         xlab="Длина лепестка",ylab="Ширина лепестка",main=t,asp = 1)
+    
+    #Отрисовка опорных объектов
+    for(i in 1:dim(omega)[1]){
+      points(omega[i,1:2],bg=colors[omega[i,3]],pch=21)
+    }
+    #Отрисовка ошибок
+    if(e>0){
+      for(i in 1:e){
+        points(err[i,1:2],col=colors[err[i,3]],pch=21)
+        points(err[i,1:2],col=colors[KWNN(omega,err[i,1:2])],pch=22)
+      }
+    }
+    legend(0.8, 2.95, legend=c("ошибки", "опорные", "выборка"),col=c("blue", "black", "blue"),
+           pt.bg=c("white", "blue", "white"), pch=c(22,21,21), cex=1, pt.cex = 1, text.width = 0.7)
+    if(e <= l) return(omega)
+    print(e)
+    print(queue[1,])
+    omega <- rbind(omega,queue[1,])
+    queue <- queue[-1,]
+  }
+}
+
+stolp2 <- function(x,sigma=-0.1,l=0){
+  margins <- marginKWNN(x)
+  cols <- dim(x)[2]
+  invalids <- c()
+  omega <- matrix(NA,0,cols)
+  for(i in 1:dim(x)[1]){
+    if(margins[i]<sigma){
+      invalids <- c(invalids,i)
+    } 
+  }
+  xl <- x[-invalids,]
+  margins <- margins[-invalids]
+  print(margins)
+  #разбить по классам с учетом отступов, а потом присоединять
+  classes <- unique(xl[,3])
+  x_m <- cbind(xl,margins)
+  for(i in classes){
+    ob <- x_m[x_m[3]==i,]
+    omega <- rbind(omega,ob[which.max(ob[,cols+1]),1:cols])
+  }
+  queue <- xl[order(x_m[,4]),]
+  m <- dim(xl)[1]
+  for(k in 1:(dim(xl)[1]-dim(omega)[1])){
+    e <- 0
+    err <- matrix(NA,0,cols)
+    for (i in 1:m){
+      if(KWNN(omega,x[i,1:2]) != x[i,3]){
+        e <- e + 1
+        err <- rbind(err,x[i,])
+      }
+    }
+    
+    t <- paste("Шаг ",k,", ошибка = ",e, sep="")
+    #Отрисовка всех объектов
+    plot(x[1:2], pch = 21, col = colors[x$Species],
+         xlab="Длина лепестка",ylab="Ширина лепестка",main=t,asp = 1)
+    
+    #Отрисовка опорных объектов
+    for(i in 1:dim(omega)[1]){
+      points(omega[i,1:2],bg=colors[omega[i,3]],pch=21)
+    }
+    #Отрисовка ошибок
+    if(e>0){
+      for(i in 1:e){
+        points(err[i,1:2],col=colors[err[i,3]],pch=21)
+        points(err[i,1:2],col=colors[KWNN(omega,err[i,1:2])],pch=22)
+      }
+    }
+    legend(0.8, 2.95, legend=c("ошибки", "опорные", "выборка"),col=c("blue", "black", "blue"),
+           pt.bg=c("white", "blue", "white"), pch=c(22,21,21), cex=1, pt.cex = 1, text.width = 0.7)
+    if(e <= l) return(omega)
+    print(e)
+    print(queue[1,])
+    omega <- rbind(omega,queue[1,])
+    queue <- queue[-1,]
+  }
+}
+  
 inp <- iris[,3:5]
-margins <- marginKWNN(inp)
-sorted_margins <- sort(margins)
-print(sorted_margins)
-margin_colors <- colorRampPalette(c("darkred", "red", "yellow", "green"))
-gradient(1:dim(inp)[1],sorted_margins,margin_colors)
+st <- stolp2(inp)
+
+
+
+
+
+
+
+
