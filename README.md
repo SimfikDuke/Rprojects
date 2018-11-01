@@ -207,7 +207,7 @@
  где ![W](https://camo.githubusercontent.com/6b7709629eecb9d52e0928c4b41ec76271043f89/687474703a2f2f6c617465782e636f6465636f67732e636f6d2f7376672e6c617465783f575f79253238785f69253239) - весовая функция и зависит от выбранного алгоритма классификации.
 
 На картинке ниже представлен график отступов относительно метрического классификатора kwNN:
-![margins](https://github.com/SimfikDuke/Rprojects/blob/master/img/margin.png)
+![margins](https://github.com/SimfikDuke/Rprojects/blob/master/img/margins.png)
 
 В программной реализации использован метрический классификатор kwNN.  
 Сам алгоритм STOLP формулируется следующим образом:  
