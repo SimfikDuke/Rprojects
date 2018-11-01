@@ -64,7 +64,7 @@
     </tr>
   </tbody>
    </table>
-   
+</center>
 **1. Алгоритм классификации "1NN":**
    
 Классифицируемый объект относим к тому классу, к которому принадлежит ближайший по заданной метрике "сосед" из выборки:
@@ -232,15 +232,20 @@
   <tr>
   <td></td>
   <td><b>Время</b></td>
+  <td><b>Качество</b></td>
   </tr>
   <tr>
   <td>All irises</td>
   <td>8.74 mins</td>
+  <td>0.96</td>
   </tr>
   <tr>
   <td>STOLP irises</td>
   <td>20.75 secs</td>
+  <td>0.98</td>
   </tr>
 </table>  
 Сами карты классификации:  
-![s11](https://github.com/SimfikDuke/Rprojects/blob/master/img/stolp_classification.png)  
+
+![c_map](https://github.com/SimfikDuke/Rprojects/blob/master/img/stolp_classification.png)
+
