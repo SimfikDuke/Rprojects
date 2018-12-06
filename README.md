@@ -82,3 +82,36 @@
 **Упрощенное** уравнение для классификации выглядит так:
 ![f_naive](https://pp.userapi.com/c637717/v637717210/6838f/h_T-iT7wqbc.jpg)  
 Реализация алгоритма по ссылке: <a href="https://simfikduke.shinyapps.io/Bayes/">click</a> 
+
+**3. Подстановочный алгоритм (plug-in)**  
+
+В качестве модели восстанавливаемой плотности рассматривается **многомерная нормальная**:
+
+![](https://latex.codecogs.com/gif.latex?N%28x%2C%20%5Cmu%2C%20%5CSigma%29%20%3D%20%5Cfrac%7B1%7D%7B%5Csqrt%7B%282%5Cpi%29%5En%7C%5CSigma%7C%7D%7Dexp%28%5Cfrac%7B-1%7D%7B2%7D%28x%20-%20%5Cmu%29%5ET%20%5CSigma%5E%7B-1%7D%28x%20-%20%5Cmu%29%29%2C%20x%20%5Cepsilon%20%5Cmathbb%7BR%7D%5E%7Bn%7D) ,
+
+где ![](https://latex.codecogs.com/gif.latex?%5Cmu%20%5Cepsilon%20%5Cmathbb%7BR%7D%5E%7Bn%7D) -- математическое ожидание (центр), а ![](https://latex.codecogs.com/gif.latex?%5CSigma%20%5Cepsilon%20%5Cmathbb%7BR%7D%5E%7Bn%5Ctimes%20n%7D) -- ковариационная матрица (симметричная, невырожденная, положительно определённая).
+
+Алгоритм заключается в восстановлении параметров нормального распределения ![](https://latex.codecogs.com/gif.latex?%5Cmu_y), ![](https://latex.codecogs.com/gif.latex?%5CSigma_y) для каждого класса ![](https://latex.codecogs.com/gif.latex?y%20%5Cepsilon%20Y) и подстановке их в формулу оптимального байесовского классификатора. Предполагается, что ковариационные матрицы классов не равны.
+
+Оценка параметров нормального распределения производится на основе *принципа максимума правдоподобия*:
+
+![](https://latex.codecogs.com/gif.latex?%5Cmu_y%20%3D%20%5Cfrac%7B1%7D%7Bl_y%7D%5Csum_%7Bx_i%3Ay_i%20%3D%20y%7D%20x_i) ,
+
+![](https://latex.codecogs.com/gif.latex?%5CSigma_y%20%3D%20%5Cfrac%7B1%7D%7Bl_y%20-%201%7D%5Csum_%7Bx_i%3Ay_i%20%3D%20y%7D%28x_i%20-%20%5Cmu_y%29%28x_i%20-%20%5Cmu_y%29%5ET).
+
+Разделяющая поверхность между двумя классами *s* и *t* задаётся следующим образом:
+
+![](https://latex.codecogs.com/gif.latex?%5Clambda_sP_s%5Crho_s%28x%29%20%3D%20%5Clambda_tP_t%5Crho_t%28x%29)
+
+Прологарифмируем и выразим константу:
+
+![](https://latex.codecogs.com/gif.latex?%5Cln%7Bp_s%28x%29%7D%20-%20%5Cln%7Bp_t%28x%29%7D%20%3D%20C%2C%20C%20%3D%20%5Cln%28%5Cfrac%7B%5Clambda_tP_t%7D%7B%5Clambda_sP_s%7D%29)
+
+Как известно:
+
+![](https://latex.codecogs.com/gif.latex?%5Crho_y%28x%29%20%3D%20N%28x%2C%20%5Cmu_y%2C%20%5CSigma_y%29%2C%20y%20%5Cepsilon%20Y)
+
+Логарифмируя плотности каждого класса и подставив в выражение с разностью логарифмов, получим коэффициенты разделяющей кривой:
+
+![](https://latex.codecogs.com/gif.latex?%5Cln%7Bp_y%28x%29%7D%20%3D%20-%5Cfrac%7Bn%7D%7B2%7D%20%5Cln%7B2%5Cpi%7D%20-%20%5Cfrac%7B1%7D%7B2%7D%5Cln%7B%5Cleft%20%7C%20%5CSigma_y%20%5Cright%20%7C%7D%20-%20%5Cfrac%7B1%7D%7B2%7D%28x%20-%20%5Cmu_y%29%5ET%20%5CSigma%5E%7B-1%7D_y%20%28x%20-%20%5Cmu_y%29)
+
