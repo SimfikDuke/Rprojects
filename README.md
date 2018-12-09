@@ -89,7 +89,7 @@
       <td><a href="https://simfikduke.shinyapps.io/Bayes/">Реализация</a></td>
     </tr>
     <tr>
-      <td><a href="#ParzenR">Подстановочный алгоритм</a></td>
+      <td><a href="#plug-in">Подстановочный алгоритм</a></td>
       <td><a href="https://simfikduke.shinyapps.io/plug-in/">Реализация</a></td>
     </tr>
   </tbody>
