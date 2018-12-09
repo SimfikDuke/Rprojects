@@ -1,0 +1,13 @@
+name: Bayes
+title: Bayes
+username:
+account: simfikduke
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 578421
+bundleId: 1707400
+url: https://simfikduke.shinyapps.io/Bayes/
+when: 1542564869.38778
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: banana.png
