@@ -37,6 +37,30 @@ getPlugInDiskriminantCoeffs = function(mu1, sigma1, mu2, sigma2) {
   return(c("x^2" = a, "xy" = b, "y^2" = c, "x" = d, "y" = e, "1" = f))
 }
 
+getNewCoeffs = function(mu1, sigma1, mu2, sigma2) {
+  # Уравнение : a*x1^2 + b*x1*x2 + c*x2^2 + d*x1 + e*x2 + f = 0
+  a1 = sigma1[1,1]
+  b1 = sigma1[1,2]
+  c1 = sigma1[2,2]
+  mu11 = mu1[1]
+  mu12 = mu1[2] 
+  a2 = sigma2[1,1]
+  b2 = sigma2[1,2]
+  c2 = sigma2[2,2]
+  mu21 = mu2[1]
+  mu22 = mu2[2]
+  k1 = (2*a2*c2 - 2*b2^2)
+  k2 = (2*a1*c1 - 2*b1^2)
+  
+  a = -k1*c1 + k2*c2
+  c = -k1*a1 + k2*a2
+  b = k1*(2*b1) -k2*2*b2
+  d = -k1*(2*b1*mu12-2*c1*mu11) + k2*(2*b2*mu22-2*c2*mu21)
+  e = -k1*(2*b1*mu11-2*a1*mu12) + k2*(2*b2*mu21-2*a2*mu22)
+  f = (1/2)*(log(abs(a2*c2-b2^2))-log(abs(a1*c1-b1^2)))*k1*k2 - k1*(c1*mu11^2+a1*mu12^2-2*b1*mu11*mu12) + k2*(c2*mu21^2+a2*mu22^2-2*b2*mu21*mu22)
+  return(c("x^2" = a, "xy" = b, "y^2" = c, "x" = d, "y" = e, "1" = f))
+}
+
 server = function(input, output) {
   generateData = function() {
     # nomber of instances
@@ -96,6 +120,28 @@ server = function(input, output) {
     #возвращаем разделяющую поверхность
     coeffs = getPlugInDiskriminantCoeffs(mu1, cov1, mu2, cov2)
     coeffs
+  }  
+  nCoeffs = function(xy1, xy2) {
+    mu1 = estimateMu(xy1)
+    mu2 = estimateMu(xy2)
+    cov1 = estimateCovarianceMatrix(xy1, mu1)
+    cov2 = estimateCovarianceMatrix(xy2, mu2)
+    
+    #выводим итоговые результаты
+    
+    output$m1X = render(mu1[1],2)
+    output$m1Y = render(mu1[2],2)
+    output$m2X = render(mu2[1],2)
+    output$m2Y = render(mu2[2],2)
+    
+    output$c1X = render(cov1[1, 1],2)
+    output$c1Y = render(cov1[2, 2],2)
+    output$c2X = render(cov2[1, 1],2)
+    output$c2Y = render(cov2[2, 2],2)
+    
+    #возвращаем разделяющую поверхность
+    coeffs = getNewCoeffs(mu1, cov1, mu2, cov2)
+    coeffs
   }
   
   output$plot = renderPlot({
@@ -109,10 +155,13 @@ server = function(input, output) {
     
     # Поиск параметров
     coeffs = estimateCoeffs(xy1, xy2)
+    nc = nCoeffs(xy1,xy2)
     
     # Рисуем дискриминантую функцию
     x = y = seq(-50, 50, len = 1000)
     z = outer(x, y, function(x, y) coeffs["x^2"] * x ^ 2 + coeffs["xy"] * x * y + coeffs["y^2"] * y ^ 2 + coeffs["x"] * x + coeffs["y"] * y + coeffs["1"])
-    contour(x, y, z, levels = 0, lwd = 3, col = "darkred", add = TRUE)
+    nz = outer(x, y, function(x, y) nc["x^2"] * x ^ 2 + nc["xy"] * x * y + nc["y^2"] * y ^ 2 + nc["x"] * x + nc["y"] * y + nc["1"])
+    contour(x, y, z, levels = 0, lwd = 1, col = "black", add = TRUE)
+    contour(x, y, nz, levels = 0, lwd = 4, col = "darkred", add = TRUE, method = "flattest")
   })
 }
