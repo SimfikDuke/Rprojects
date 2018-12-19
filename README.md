@@ -92,6 +92,9 @@
       <td><a href="#plug-in">Подстановочный алгоритм</a></td>
       <td><a href="https://simfikduke.shinyapps.io/plug-in/">Реализация</a></td>
     </tr>
+      <td><a href="#ldf">Линейный дискриминант Фишера</a></td>
+      <td><a href="https://simfikduke.shinyapps.io/ldf-plugin/">Реализация</a></td>
+    </tr>
   </tbody>
    </table>
 </center>
@@ -160,3 +163,28 @@
 3. Гиперболоид:  
   
 ![p3](https://raw.githubusercontent.com/SimfikDuke/Rprojects/master/BayesAlgorithms/plug-in/img/p3.png)  
+
+### <a name="ldf"></a>**4. Линейный дискриминант Фишера **  
+  
+Линейный дискриминант Фишера является модификацией подстановочного алгоритма. Главная идея линейного дискриминанта Фишера - равенство ковариационных матриц.  
+Соответственно, считается "общая" ковариационная матрица иначе:  
+![p1](https://raw.githubusercontent.com/SimfikDuke/Rprojects/master/BayesAlgorithms/ldf/img/ldf.png)  
+Таким образом квадратичный дискриминант обращается в линейный, другими словами, разделяющая поверхность обращается в линейную.  
+В остальном алгоритм ничем не отличается от подстановочного. В функцию подсчета коэфициентов разделяющей поверхности теперь передаются две одинаковых ковариационных матрицы.  
+
+<b>Реализованную программу можно увидеть по <a href="https://simfikduke.shinyapps.io/ldf-plugin/">ссылке</a>.</b>  
+
+<b>Скриншоты программы:</b>  
+На следующих картинках наглядно представленны различия алгоритмов ЛДФ (зеленым цветом) и Подстановочного (бордовым):  
+  
+1. Ковариационные матрицы равны, разделяющие поверхности похожи:  
+
+![p1](https://raw.githubusercontent.com/SimfikDuke/Rprojects/master/BayesAlgorithms/ldf/img/ldf1.png)  
+
+2. Ковариационные матрицы равны, разделяющие поверхности отличаются:  
+  
+![p2](https://raw.githubusercontent.com/SimfikDuke/Rprojects/master/BayesAlgorithms/ldf/img/ldf2.png)  
+   
+3. Ковариационные матрицы различные, разделяющие поверхности имеют существенные различия:  
+  
+![p3](https://raw.githubusercontent.com/SimfikDuke/Rprojects/master/BayesAlgorithms/ldf/img/ldf3.png)  
