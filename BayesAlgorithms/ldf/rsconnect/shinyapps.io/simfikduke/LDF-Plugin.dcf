@@ -1,0 +1,12 @@
+name: LDF-Plugin
+title: LDF-Plugin
+username:
+account: simfikduke
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 620552
+bundleId: 1773710
+url: https://simfikduke.shinyapps.io/LDF-Plugin/
+when: 1545244654.01946
+asMultiple: FALSE
+asStatic: FALSE
