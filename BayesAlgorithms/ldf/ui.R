@@ -47,10 +47,11 @@ ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
       fluidRow(
-        column(3, h4("ЛДФ", style = "color: green; text-align: center")),
         column(1,checkboxInput("ldf",label = "", value=TRUE)),
-        column(4, h4("Plug-in", style = "color: darkred")),
-        column(1,checkboxInput("plug",label = "", value=TRUE))
+        column(3, h4("ЛДФ", style = "color: green; text-align: left")),
+        column(1),
+        column(1,checkboxInput("plug",label = "", value=TRUE)),
+        column(4, h4("Plug-in", style = "color: darkred; text-align: left"))
       ),
       fluidRow(
         column(4, h2("Класс 1", style = "color: gold; text-align: center")),

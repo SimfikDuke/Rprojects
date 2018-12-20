@@ -174,11 +174,11 @@ server = function(input, output) {
     plugz = outer(x, y, function(x, y) plug["x^2"] * x ^ 2 + plug["xy"] * x * y + plug["y^2"] * y ^ 2 + plug["x"] * x + plug["y"] * y + plug["1"])
     ldfz = outer(x, y, function(x, y) ldf["x"] * x + ldf["y"] * y + ldf["1"])
     if(input$plug){ 
-        contour(x, y, plugz, levels = 0, lwd = 2, col = "darkred",
+        contour(x, y, plugz, levels = FALSE, drawlabels = FALSE, lwd = 2, col = "darkred",
                 add = TRUE, method = "flattest")
     }
     if(input$ldf){
-        contour(x, y, ldfz, levels = 0, lwd = 4, col = "green",
+        contour(x, y, ldfz, levels = FALSE, drawlabels = FALSE, lwd = 4, col = "green",
                 add = TRUE, method = "flattest")
      }
   })
