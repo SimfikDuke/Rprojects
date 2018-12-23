@@ -5,8 +5,8 @@ account: simfikduke
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 620552
-bundleId: 1773710
+bundleId: 1774492
 url: https://simfikduke.shinyapps.io/LDF-Plugin/
-when: 1545244654.01946
+when: 1545284710.08469
 asMultiple: FALSE
 asStatic: FALSE
