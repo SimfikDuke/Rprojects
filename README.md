@@ -248,8 +248,9 @@
 – монотонно невозрастающая __функция потерь__, мажорирует пороговую функцию
 ![](http://latex.codecogs.com/svg.latex?%5BM%3C0%5D%20%5Cleq%20%5Cmathcal%7BL%7D%28M%29).
 Тогда __минимизацю суммарных потерь__ можно рассматривать как функцию вида
-![](http://latex.codecogs.com/svg.latex?%5Ctilde%7BQ%7D%28w%2CX%5E%5Cell%29%20%3D%20%5Csum_%7Bi%3D1%7D%5E%7B%5Cell%7D%5Cmathcal%28M_i%28w%29%29%5Crightarrow%20%5Cmin_w)
-
+![](http://latex.codecogs.com/svg.latex?%5Ctilde%7BQ%7D%28w%2CX%5E%5Cell%29%20%3D%20%5Csum_%7Bi%3D1%7D%5E%7B%5Cell%7D%5Cmathcal%28M_i%28w%29%29%5Crightarrow%20%5Cmin_w)  
+  
+  
 <center><b>Метод стохастического градиента</center></b>
 
 Для минимизации
@@ -283,15 +284,15 @@
 полагать небольшим. Однако, при слишком маленьком его значении алгоритм будет
 медленно сходится.
 
-### <a name="adaline"></a>
-**1. Адаптивный линейный элемент **  
+### <a name="adaline"></a>  
+<center><b>1.Адаптивный линейный элемент</center></b>  
 
 Имеет _квадратичную функцию потерь_
 ![](http://latex.codecogs.com/svg.latex?%5Cmathcal%7BL%7D%28M%29%3D%28M-1%29%5E2%3D%28%5Clangle%20w%2Cx_i%20%5Crangle%20y_i-1%29%5E2)
 и _дельта-правило_ правило обновления весов
 ![](http://latex.codecogs.com/svg.latex?w%3Dw-%5Ceta%28%5Clangle%20w%2Cx_i%20%5Crangle-y_i%29x_i).  
-
-**2. Правило Хебба **  
+  
+<center><b>2.Правило Хебба</center></b>  
 Имеет _кусочно-линейную функцию потерь_
 ![](http://latex.codecogs.com/svg.latex?%5Cmathcal%7BL%7D%3D%28-M%29_&plus;%3D%5Cmax%28-M%2C0%29)
 и _правило Хебба_ для обновления весов
