@@ -292,7 +292,9 @@
 и _дельта-правило_ правило обновления весов
 ![](http://latex.codecogs.com/svg.latex?w%3Dw-%5Ceta%28%5Clangle%20w%2Cx_i%20%5Crangle-y_i%29x_i).  
   
-<center><b>2.Правило Хебба</center></b>  
+
+<center><b> 2.Правило Хебба</center></b>  
+  
 Имеет _кусочно-линейную функцию потерь_
 ![](http://latex.codecogs.com/svg.latex?%5Cmathcal%7BL%7D%3D%28-M%29_&plus;%3D%5Cmax%28-M%2C0%29)
 и _правило Хебба_ для обновления весов
