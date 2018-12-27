@@ -215,8 +215,9 @@
 
 Положим ![p](http://www.machinelearning.ru/mimetex/?Y=\{-1,+1\})  
 
-Линейным классификатором называется алгоритм классификации ![q](http://www.machinelearning.ru/mimetex/?a:\;%20X\to%20Y) вида:  
-![v](http://www.machinelearning.ru/mimetex/?a(x,w)%20=%20\mathrm{sign}\left(%20\sum_{j=1}^n%20w_j%20f_j(x)%20-%20w_0%20\right)%20=%20\mathrm{sign}\langle%20x,w%20\rangle,]  
+Линейным классификатором называется алгоритм классификации
+![q](http://www.machinelearning.ru/mimetex/?a:\;%20X\to%20Y) вида:  
+![v](http://www.machinelearning.ru/mimetex/?a(x,w)%20=%20\mathrm{arg}\max_{y\in%20Y}\,%20\sum_{j=0}^n%20w_{yj}%20f_j(x)%20=%20\mathrm{arg}\max_{y\in%20Y}\,%20\langle%20x,w_y%20\rangle,)  
 
 где ![s](http://www.machinelearning.ru/mimetex/?w_j) вес j-го признака, ![q](http://www.machinelearning.ru/mimetex/?w_0) — порог принятия решения, ![s](http://www.machinelearning.ru/mimetex/?w=(w_0,w_1,\ldots,w_n)) — вектор весов,— вектор весов, ![r](http://www.machinelearning.ru/mimetex/?\langle%20x,w%20\rangle) — скалярное произведение признакового описания объекта на вектор весов.  
 
