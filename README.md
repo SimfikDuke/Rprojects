@@ -211,17 +211,76 @@
 ![p3](https://raw.githubusercontent.com/SimfikDuke/Rprojects/master/BayesAlgorithms/ldf/img/ldf3.png)  
 
 <center><h1>Линейные алгоритмы</h1></center>  
+  
 **Случай двух классов**  
-
 Положим ![p](http://www.machinelearning.ru/mimetex/?Y=\{-1,+1\})  
 
 Линейным классификатором называется алгоритм классификации
 ![q](http://www.machinelearning.ru/mimetex/?a:\;%20X\to%20Y) вида:  
-![v](http://www.machinelearning.ru/mimetex/?a(x,w)%20=%20\mathrm{arg}\max_{y\in%20Y}\,%20\sum_{j=0}^n%20w_{yj}%20f_j(x)%20=%20\mathrm{arg}\max_{y\in%20Y}\,%20\langle%20x,w_y%20\rangle,)  
+![v](https://camo.githubusercontent.com/935eed331b66e377298913a8eb902f341a120e27/687474703a2f2f6c617465782e636f6465636f67732e636f6d2f7376672e6c617465783f612532387825324377253239253344253230253543746578742537427369676e253744662532387825324377253239253344253543746578742537427369676e2537442532302532382535436c616e676c65253230772532437825323025354372616e676c652d775f3025323925324377253230253543696e2532302535436d6174686262253742522537442535456e)  
 
 где ![s](http://www.machinelearning.ru/mimetex/?w_j) вес j-го признака, ![q](http://www.machinelearning.ru/mimetex/?w_0) — порог принятия решения, ![s](http://www.machinelearning.ru/mimetex/?w=(w_0,w_1,\ldots,w_n)) — вектор весов,— вектор весов, ![r](http://www.machinelearning.ru/mimetex/?\langle%20x,w%20\rangle) — скалярное произведение признакового описания объекта на вектор весов.  
 
 Предполагается, что искусственно введён «константный» нулевой признак: ![sf](http://www.machinelearning.ru/mimetex/?f_{0}(x)=-1)  
-**Понятие отступа**  
 
-Удобно определить для произвольного обучающего объекта ![cx](http://www.machinelearning.ru/mimetex/?x_i\in%20X^m) величину отступа (margin): ![m](http://www.machinelearning.ru/mimetex/?M(x_i)%20=%20y_i%20\langle%20x_i,w%20\rangle.)
+
+Параметр ![](http://latex.codecogs.com/svg.latex?w_0) иногда опускают. Однако в таком
+случае разделяющая поверхность (в нашем случае с 2мя признаками – прямая),
+соответствующая уравнению
+![](http://latex.codecogs.com/svg.latex?%5Clangle%20w%2Cx%20%5Crangle%3D0),
+будет всегда проходить через начало координат. Чтобы избежать такого обобщения,
+будем полагать, что среди признаков _x_ есть константа
+![](http://latex.codecogs.com/svg.latex?f_j%28x%29%20%5Cequiv%20-1),
+тогда роль свобоного коэффициента ![](http://latex.codecogs.com/svg.latex?w_0)
+играет параметр ![](http://latex.codecogs.com/svg.latex?w_j).
+Тогда разделяющая поверхность имеет вид
+![](http://latex.codecogs.com/svg.latex?%5Clangle%20w%2Cx%20%5Crangle=w_j).
+
+Величина
+![](http://latex.codecogs.com/svg.latex?M_i%28w%29%3Dy_i%5Clangle%20x_i%2Cw%20%5Crangle)
+называется __отступом__ объекта относительно алгоритма классификации. Если
+![](http://latex.codecogs.com/svg.latex?M_i%28w%29%3C0),
+алгоритм совершает на объекте
+![](http://latex.codecogs.com/svg.latex?x_i)
+ошибку.
+
+![](http://latex.codecogs.com/svg.latex?%5Cmathcal%7BL%7D%28M%29)
+– монотонно невозрастающая __функция потерь__, мажорирует пороговую функцию
+![](http://latex.codecogs.com/svg.latex?%5BM%3C0%5D%20%5Cleq%20%5Cmathcal%7BL%7D%28M%29).
+Тогда __минимизацю суммарных потерь__ можно рассматривать как функцию вида
+![](http://latex.codecogs.com/svg.latex?%5Ctilde%7BQ%7D%28w%2CX%5E%5Cell%29%20%3D%20%5Csum_%7Bi%3D1%7D%5E%7B%5Cell%7D%5Cmathcal%28M_i%28w%29%29%5Crightarrow%20%5Cmin_w)
+
+**Метод стохастического градиента**
+
+Для минимизации
+![](http://latex.codecogs.com/svg.latex?Q%28w%29)
+применяется __метод градиентного спуска__.
+
+В начале выбирается некоторое _начальное приближение вектора весов_ _w_.
+Не существует единого способа инициализации весов. Хорошей практикой считается
+инициализировать веса случайными малыми значениями:
+![](http://latex.codecogs.com/svg.latex?w_j%3A%3D%5Ctext%7Brandom%7D%28-%5Cfrac%7B1%7D%7B2n%7D%2C&plus;%5Cfrac%7B1%7D%7B2n%7D%29)
+, где _n_ – количество признаков _x_.
+
+Далее высчитывается _текущая оценка функционала_
+![](http://latex.codecogs.com/svg.latex?Q%3A%3D%5Csum_%7Bi%3D1%7D%5E%7B%5Cell%7D%5Cmathcal%7BL%7D%28%5Clangle%20w%2Cx_i%20%5Crangle%20y_i%29)
+
+Затем запускается итерационный процесс, на каждом шаге которого вектор _w_
+изменяется в сторону наиболее быстрого убывания _Q_. Это направление противоположно
+вектору градиента
+![](http://latex.codecogs.com/svg.latex?Q%27%28w%29). Соответственно веса меняются по
+правилу:
+
+![](http://latex.codecogs.com/svg.latex?w%3A%3Dw-%5Ceta%20Q%27%28w%29)
+
+или
+
+![](http://latex.codecogs.com/svg.latex?w%3A%3Dw-%5Ceta%5Csum_%7Bi%3D1%7D%5E%7B%5Cell%7D%5Cmathcal%7BL%7D%27%28%5Clangle%20w%2Cx_i%20%5Crangle%20y_i%29x_iy_i),
+
+где
+![](http://latex.codecogs.com/svg.latex?%5Ceta%3E0)
+– __темп обучения__. Чтобы не проскочить локальный минимум темп обучания принято
+полагать небольшим. Однако, при слишком маленьком его значении алгоритм будет
+медленно сходится.
+
+### <a name="adaline"></a>**1. Адаптивный линейный алгоритм **  
