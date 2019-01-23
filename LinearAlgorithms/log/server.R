@@ -132,19 +132,16 @@ server = function(input, output) {
       }
     }
     k = 1/max(max(P), -min(P))
-    print(k)
     for(i in seq(from=0, to=1, by=0.05)){
       for(j in seq(from=0, to=1, by=0.05)){
-        if((i*100)%%10==5) jj = j+0.00625
-        else jj = j
-        pp = p(i,jj,reg)
+        pp = p(i,j,reg)
         if(pp>0){
           color = adjustcolor("blue",pp*k)
-          draw.circle(i, jj, 0.035, 6, border = color, col = color)
+          draw.circle(i, j, 0.035, 5, border = color, col = color)
         }
         if(pp<0){
           color = adjustcolor("gold",-pp*k)
-          draw.circle(i, jj, 0.035, 6, border = color, col = color)
+          draw.circle(i, j, 0.035, 5, border = color, col = color)
         } 
       }
     }
