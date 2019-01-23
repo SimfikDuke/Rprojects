@@ -112,6 +112,10 @@
       <td><a href="#adaline">Adaline</a></td>
       <td><a href="https://simfikduke.shinyapps.io/adaline/">Реализация</a></td>
     </tr>
+    <tr>
+      <td><a href="#logistic">Логистическая регрессия</a></td>
+      <td><a href="https://simfikduke.shinyapps.io/logistic/">Реализация</a></td>
+    </tr>
   </tbody>
    </table>
 </center>

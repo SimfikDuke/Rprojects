@@ -68,7 +68,8 @@ server = function(input, output) {
   }
   
   # Стохастический градиент
-  sgd = function(xl, classes, L, updateRule, drawIters, eps=1e-5, eta=1/6) {
+  sgd = function(xl, classes, L, updateRule, drawIters=FALSE, ost=FALSE,
+                 eps=1e-5, eta=1/6) {
     rows = dim(xl)[1]
     xl = cbind(xl,seq(from=-1,to=-1,length.out=rows))
     cols = dim(xl)[2]
@@ -91,11 +92,18 @@ server = function(input, output) {
       }
       errors = which(margins <= 0)
       
-      if (length(errors) == 0) {
-        break;
+      
+      if (length(errors) == 0 && ost == TRUE) {
+        return(w)
       }
       
-      rnd_err = sample(errors, 1)
+      if(length(errors) != 0){
+        rnd_err = sample(errors, 1)
+      } 
+      else{ 
+        rnd_err = sample(1:rows, 1)
+      }
+      
       xi = xl[rnd_err,]
       yi = classes[rnd_err]
       
@@ -108,7 +116,7 @@ server = function(input, output) {
       if (abs(Q0 - Q) / abs(max(Q0, Q)) < eps) break;
       Q0 = Q
       if (iter == 30000)  break;
-      if(drawIters) drawLine(w, "black", 1)
+      if(drawIters) drawLine1(w, "black")
     }
     
     return(w)
@@ -150,9 +158,9 @@ server = function(input, output) {
   output$plot = renderPlot({
     data = generateData()
     drawPoints(data)
-    ada = sgd(data[,1:2], data[,3], ada_L, ada_upd, FALSE)
-    heb = sgd(data[,1:2], data[,3], heb_L, heb_upd, FALSE)
-    reg = sgd(data[,1:2], data[,3], reg_L, reg_upd, input$iter)
+    ada = sgd(data[,1:2], data[,3], ada_L, ada_upd)
+    heb = sgd(data[,1:2], data[,3], heb_L, heb_upd, ost=TRUE)
+    reg = sgd(data[,1:2], data[,3], reg_L, reg_upd, drawIters=input$iter)
     if(input$drawAda) drawLine1(ada, "darkred")
     if(input$drawHeb) drawLine1(heb, "darkgreen")
     drawLine1(reg, "red")
