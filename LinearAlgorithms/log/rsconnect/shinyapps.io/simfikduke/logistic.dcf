@@ -5,8 +5,8 @@ account: simfikduke
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 659780
-bundleId: 1830169
+bundleId: 1832310
 url: https://simfikduke.shinyapps.io/logistic/
-when: 1548192465.95794
+when: 1548266736.96826
 asMultiple: FALSE
 asStatic: FALSE

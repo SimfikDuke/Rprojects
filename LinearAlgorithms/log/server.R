@@ -124,7 +124,7 @@ server = function(input, output) {
     abline(a = w[3] / w[2], b = -w[1] / w[2], lwd = 2, col = color)
   }
   drawGrad = function(data, reg){
-    p = function(x,y,w) x*w[1]+y*w[2]-w[3]
+    p = function(x,y,w) sigmoid(x*w[1]+y*w[2]-w[3])-sigmoid(-x*w[1]-y*w[2]+w[3])
     P = matrix(0, 100, 100)
     for(i in seq(from=0, to=1, by=0.1)){
       for(j in seq(from=0, to=1, by=0.1)){
@@ -132,6 +132,7 @@ server = function(input, output) {
       }
     }
     k = 1/max(max(P), -min(P))
+    print(k)
     for(i in seq(from=0, to=1, by=0.05)){
       for(j in seq(from=0, to=1, by=0.05)){
         if((i*100)%%10==5) jj = j+0.00625
