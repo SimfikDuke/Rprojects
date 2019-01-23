@@ -113,8 +113,6 @@
   
 <center><h1>Метрические алгоритмы</h1></center>
   
-<details> 
-<summary>Метрические алгоритмы </summary>
 
 **Гипотеза компактности** - схожим объекам соответствуют схожие ответы.
 Для формализации понятия **сходства** вводится функция расстояния в пространстве X.
@@ -308,7 +306,6 @@
 
 ![c_map](https://github.com/SimfikDuke/Rprojects/blob/master/MetricalAlgorithms/img/stolp_classification.png)
 
-</details>  
   
 <center><h1>Байесовские классификаторы</h1></center>
 
@@ -478,17 +475,14 @@
 полагать небольшим. Однако, при слишком маленьком его значении алгоритм будет
 медленно сходится.
 
-### <a name="adaline"></a>  
-**1.Адаптивный линейный элемент**
+### <a name="adaline"></a>**1.Адаптивный линейный элемент**  
 
 Имеет _квадратичную функцию потерь_
 ![](http://latex.codecogs.com/svg.latex?%5Cmathcal%7BL%7D%28M%29%3D%28M-1%29%5E2%3D%28%5Clangle%20w%2Cx_i%20%5Crangle%20y_i-1%29%5E2)
 и _дельта-правило_ правило обновления весов
 ![](http://latex.codecogs.com/svg.latex?w%3Dw-%5Ceta%28%5Clangle%20w%2Cx_i%20%5Crangle-y_i%29x_i).  
-  
 
-<center><b> 2.Правило Хебба</center></b>  
-  
+**Правило Хебба**
 Имеет _кусочно-линейную функцию потерь_
 ![](http://latex.codecogs.com/svg.latex?%5Cmathcal%7BL%7D%3D%28-M%29_&plus;%3D%5Cmax%28-M%2C0%29)
 и _правило Хебба_ для обновления весов
@@ -496,5 +490,21 @@
 
 <b>Реализованную программу можно увидеть по <a href="https://simfikduke.shinyapps.io/adaline/">ссылке</a>.</b>  
 
-### <a name="logistic"></a>  
-**2.Логистическая регрессия**
+### <a name="logistic"></a>**2.Логистическая регрессия**  
+
+Реализованную программу можно по <a href="https://simfikduke.shinyapps.io/logistic/">ссылке</a>.  
+Скриншот 1:  
+"Разделение классов"  
+![s1](https://github.com/SimfikDuke/Rprojects/blob/master/LinearAlgorithms/img/log_1.png)  
+Скриншот 2:  
+"Сравнение линейных алгоритмов"  
+Красный - логистическая регрессия  
+Зеленый - Правило Хэбба  
+Бордовый - Адаптивный линейный элемент  
+![s2](https://github.com/SimfikDuke/Rprojects/blob/master/LinearAlgorithms/img/log_all.png)  
+Скриншот 3:  
+"Непрозрачность объекта соответствует его вероятности принадлежности к данному классу."  
+![s3](https://github.com/SimfikDuke/Rprojects/blob/master/LinearAlgorithms/img/log_grad.png)  
+Скриншот 4:  
+"Непрозрачность объекта соответствует его вероятности принадлежности к данному классу."  
+![s4](https://github.com/SimfikDuke/Rprojects/blob/master/LinearAlgorithms/img/log_grad2.png)  
